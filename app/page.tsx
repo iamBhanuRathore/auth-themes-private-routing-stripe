@@ -1,3 +1,8 @@
+"use client";
+
+import { useSession } from "next-auth/react";
+
 export default function Home() {
-  return <section>Hello</section>;
+  const { data: session } = useSession();
+  return <section>{JSON.stringify(session)}</section>;
 }

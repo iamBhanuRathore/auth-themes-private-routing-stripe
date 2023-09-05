@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import { env } from "@/env.mjs";
 
 let isConnected = false;
 
@@ -9,10 +10,8 @@ export const connectToDB = async () => {
     return;
   }
   try {
-    await mongoose.connect(process.env.MONGODB_URI, {
+    await mongoose.connect(env.MONGODB_URI, {
       dbName: "auth-themes-stripe",
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
     });
     isConnected = true;
     console.log("MongoDb is connected");

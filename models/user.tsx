@@ -1,19 +1,14 @@
 import { Schema, model, models } from "mongoose";
 
 const UserSchema = new Schema({
-  userId: {
-    type: Schema.Types.ObjectId,
-    ref: "User",
-  },
-  tag: {
-    type: String,
-    required: [true, "Tag is Required"],
-  },
-  prompt: {
-    type: String,
-    required: [true, "Prompt is Required"],
-  },
+  name: String,
+  email: { type: String, unique: true },
+  emailVerified: { type: Date, default: Date.now },
+  image: String,
+  hashedPassword: String,
+  createdAt: { type: Date, default: Date.now },
+  updatedAt: Date,
 });
 
-const Prompt = models.User || model("User", UserSchema);
-export default Prompt;
+const user = models.User || model("User", UserSchema);
+export default user;
