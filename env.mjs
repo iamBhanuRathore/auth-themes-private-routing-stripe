@@ -1,5 +1,5 @@
 import { createEnv } from "@t3-oss/env-nextjs";
-import * as z from "zod"
+import * as z from "zod";
 export const env = createEnv({
     // !! This is used Only in the Development
     server: {
@@ -14,12 +14,12 @@ export const env = createEnv({
     },
     runtimeEnv: {
         GOOGLE_CLIENT_ID: process.env.GOOGLE_CLIENT_ID,
-        GOOGLE_CLIENT_ID: process.env.GOOGLE_CLIENT_ID,
-        GITHUB_CLIENT_SECRET: process.env.GITHUB_CLIENT_SECRET,
+        GOOGLE_CLIENT_SECRET: process.env.GOOGLE_CLIENT_SECRET,
+        GITHUB_CLIENT_ID: process.env.GITHUB_CLIENT_ID,
         GITHUB_CLIENT_SECRET: process.env.GITHUB_CLIENT_SECRET,
         MONGODB_URI: process.env.MONGODB_URI,
         NEXTAUTH_URL: process.env.NEXTAUTH_URL,
         NEXTAUTH_URL_INTERNAL: process.env.NEXTAUTH_URL_INTERNAL,
         NEXTAUTH_SECRET: process.env.NEXTAUTH_SECRET
     }
-})
+});
