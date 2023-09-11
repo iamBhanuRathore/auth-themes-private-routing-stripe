@@ -15,8 +15,11 @@ export default function LoginForm() {
   const loginUser = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     signIn("credentials", { ...data, redirect: false }).then((res) => {
-      alert("Logged In SuccessFully!!");
-      // console.log({ res });
+      if (res?.error) {
+        alert("Login failed : " + res.error);
+      }
+      // alert("Logged In SuccessFully!!");
+      console.log({ res });
     });
   };
 
@@ -83,6 +86,7 @@ export default function LoginForm() {
               <div className="flex justify-around">
                 {loginButtons.map((item) => (
                   <button
+                    type="button"
                     onClick={() => signIn(item.name)}
                     title={`Sign In With ` + item.name}
                     key={item.name}>
