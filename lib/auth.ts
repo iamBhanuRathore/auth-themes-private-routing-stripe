@@ -75,7 +75,10 @@ export const authOption: NextAuthOptions = {
     callbacks: {
         async session({ session, token, newSession, trigger, user }: any) {
             // console.log("Session Called");
-            // console.log({ session, token, newSession, trigger, user });
+            if (token.id) {
+                session.user.id = token.id
+            }
+            console.log({ session });
             // await connectToDB();
             // const sessionUser = await User.findOne({
             //     email: session?.user?.email,
@@ -88,7 +91,7 @@ export const authOption: NextAuthOptions = {
             return session;
         },
         async signIn({ user, account, profile, credentials }: any) {
-            console.log({ user, account, profile, credentials });
+            // console.log({ user, account, profile, credentials });
             if (account.provider !== "credentials") {
                 console.log("Sign In  Called");
                 try {
@@ -96,14 +99,14 @@ export const authOption: NextAuthOptions = {
                     const existUser = await User.findOne({
                         email: user.email,
                     });
-                    console.log({ user: existUser })
+                    // console.log({ user: existUser })
                     if (existUser) {
                         // Check if the user already exists based on the providerAccountId
                         const existAccount = await Account.findOne({
                             provider: account.provider,
                             providerAccountId: account.providerAccountId,
                         });
-                        console.log({ account: existAccount })
+                        // console.log({ account: existAccount })
 
                         if (existAccount) {
                             return true;
@@ -145,22 +148,23 @@ export const authOption: NextAuthOptions = {
                 }
             }
             if (account.provider === "credentials") {
-                console.log({ user, account, profile, credentials });
+                // console.log({ user, account, profile, credentials });
                 return true;
             }
             console.log("hehe")
             return true;
         },
         async jwt({ token, user, profile, session, account, trigger }) {
-            return {
-                ...token,
-                ...user,
-                ...profile,
-                ...session,
-                ...account,
-                trigger
-            };
+            console.log("JWT", { token })
+            return token;
         },
+        // async redirect({ url, baseUrl }) {
+        //     // Allows relative callback URLs
+        //     if (url.startsWith("/")) return `${baseUrl}${url}`
+        //     // Allows callback URLs on the same origin
+        //     else if (new URL(url).origin === baseUrl) return url
+        //     return baseUrl
+        // }
     },
     secret: env.NEXTAUTH_SECRET,
     session: {

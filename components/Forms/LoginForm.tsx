@@ -14,7 +14,7 @@ export default function LoginForm() {
   };
   const loginUser = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    signIn("credentials", { ...data, redirect: false }).then((res) => {
+    signIn("credentials", { ...data, redirect: false, callbackUrl: "/" }).then((res) => {
       if (res?.error) {
         alert("Login failed : " + res.error);
       }
@@ -87,7 +87,9 @@ export default function LoginForm() {
                 {loginButtons.map((item) => (
                   <button
                     type="button"
-                    onClick={() => signIn(item.name)}
+                    onClick={() => signIn(item.name, {
+                      callbackUrl: "/"
+                    })}
                     title={`Sign In With ` + item.name}
                     key={item.name}>
                     <Image
