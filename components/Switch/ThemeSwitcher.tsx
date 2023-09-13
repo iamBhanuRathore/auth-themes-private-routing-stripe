@@ -15,8 +15,7 @@ const ThemeSwitcher = () => {
         <div className='flex space-x-3'>
             <Button onClick={() => setTheme("dark")}>Dark</Button>
             <Button onClick={() => setTheme("light")}>Light</Button>
-            <Button onClick={() => setTheme("midDark")}>MidDark</Button>
-            <Button onClick={() => setTheme("orange")}>Orange</Button>
+            <Button onClick={() => setTheme("pink")}>Pink</Button>
         </div>
     )
 }

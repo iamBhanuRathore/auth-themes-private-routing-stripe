@@ -6,7 +6,7 @@ import { loginButtons } from "@/config/login-logo";
 import { useSearchParams } from "next/navigation";
 export default function LoginForm() {
   const searchParams = useSearchParams();
-  console.log("Hehe", searchParams.get("from"))
+  console.log("Hehe", searchParams.get("from"));
   const [data, setData] = useState({
     password: "",
     email: "",
@@ -17,7 +17,11 @@ export default function LoginForm() {
   };
   const loginUser = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    signIn("credentials", { ...data, redirect: false, callbackUrl: searchParams?.get("from") || "/server" }).then((res) => {
+    signIn("credentials", {
+      ...data,
+      redirect: false,
+      callbackUrl: searchParams?.get("from") || "/server",
+    }).then((res) => {
       if (res?.error) {
         alert("Login failed : " + res.error);
       }
@@ -28,7 +32,7 @@ export default function LoginForm() {
 
   return (
     <>
-      <div className="flex min-h-full flex-col justify-center w-fit h-fit dark:bg-gray-800 rounded-xl mx-auto px-6 py-12 lg:px-8">
+      <div className="flex min-h-full flex-col justify-center bg-primary-2 w-fit h-fit rounded-xl mx-auto px-6 py-12 lg:px-8">
         <div className="sm:mx-auto sm:w-full sm:max-w-sm">
           <h2 className="text-center text-2xl font-bold leading-9 tracking-tight dark:text-gray-300 text-gray-900">
             Log in to your account
@@ -89,9 +93,11 @@ export default function LoginForm() {
                 {loginButtons.map((item) => (
                   <button
                     type="button"
-                    onClick={() => signIn(item.name, {
-                      callbackUrl: searchParams?.get("from") || "/server"
-                    })}
+                    onClick={() =>
+                      signIn(item.name, {
+                        callbackUrl: searchParams?.get("from") || "/server",
+                      })
+                    }
                     title={`Sign In With ` + item.name}
                     key={item.name}>
                     <Image
