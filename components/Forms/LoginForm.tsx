@@ -3,7 +3,10 @@ import { signIn } from "next-auth/react";
 import React, { ChangeEvent, FormEvent, useState } from "react";
 import Image from "next/image";
 import { loginButtons } from "@/config/login-logo";
+import { useSearchParams } from "next/navigation";
 export default function LoginForm() {
+  const searchParams = useSearchParams();
+  console.log("Hehe", searchParams.get("from"))
   const [data, setData] = useState({
     password: "",
     email: "",
@@ -14,7 +17,7 @@ export default function LoginForm() {
   };
   const loginUser = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    signIn("credentials", { ...data, redirect: false, callbackUrl: "/" }).then((res) => {
+    signIn("credentials", { ...data, redirect: false, callbackUrl: searchParams?.get("from") || "/server" }).then((res) => {
       if (res?.error) {
         alert("Login failed : " + res.error);
       }
@@ -25,10 +28,9 @@ export default function LoginForm() {
 
   return (
     <>
-      <div className="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
+      <div className="flex min-h-full flex-col justify-center w-fit h-fit dark:bg-gray-800 rounded-xl mx-auto px-6 py-12 lg:px-8">
         <div className="sm:mx-auto sm:w-full sm:max-w-sm">
-          {/* <img className="mx-auto h-10 w-auto" src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600" alt="Your Company"> */}
-          <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
+          <h2 className="text-center text-2xl font-bold leading-9 tracking-tight dark:text-gray-300 text-gray-900">
             Log in to your account
           </h2>
         </div>
@@ -38,7 +40,7 @@ export default function LoginForm() {
             <div>
               <label
                 htmlFor="email"
-                className="block text-sm font-medium leading-6 text-gray-900">
+                className="block text-sm font-medium leading-6 dark:text-gray-300 text-gray-900">
                 Email address
               </label>
               <div className="mt-2">
@@ -48,7 +50,7 @@ export default function LoginForm() {
                   name="email"
                   type="email"
                   required
-                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                  className="block w-full rounded-md border-0 py-1.5 dark:text-gray-300 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                 />
               </div>
             </div>
@@ -57,7 +59,7 @@ export default function LoginForm() {
               <div className="flex items-center justify-between">
                 <label
                   htmlFor="password"
-                  className="block text-sm font-medium leading-6 text-gray-900">
+                  className="block text-sm font-medium leading-6 dark:text-gray-300 text-gray-900">
                   Password
                 </label>
                 {/* <div className="text-sm">
@@ -71,7 +73,7 @@ export default function LoginForm() {
                   name="password"
                   type="password"
                   required
-                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                  className="block w-full rounded-md border-0 py-1.5 dark:text-gray-300 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                 />
               </div>
             </div>
@@ -88,7 +90,7 @@ export default function LoginForm() {
                   <button
                     type="button"
                     onClick={() => signIn(item.name, {
-                      callbackUrl: "/"
+                      callbackUrl: searchParams?.get("from") || "/server"
                     })}
                     title={`Sign In With ` + item.name}
                     key={item.name}>
@@ -104,7 +106,7 @@ export default function LoginForm() {
             </div>
           </form>
 
-          <p className="mt-10 text-center text-sm text-gray-500">
+          <p className="mt-10 text-center text-sm dark:text-gray-300 text-gray-900">
             Not a member?
             <a
               href="#"

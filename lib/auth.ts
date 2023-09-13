@@ -74,18 +74,15 @@ export const authOption: NextAuthOptions = {
     ],
     callbacks: {
         async session({ session, token, newSession, trigger, user }: any) {
-            // console.log("Session Called");
+            console.log("Session Called");
             if (token.id) {
                 session.user.id = token.id
             }
-            console.log({ session });
-            // await connectToDB();
-            // const sessionUser = await User.findOne({
-            //     email: session?.user?.email,
-            // });
-            // if (sessionUser) {
-            //     redirect("/home");
-            // }
+            // console.log({ session });
+            await connectToDB();
+            const sessionUser = await User.findOne({
+                email: session?.user?.email,
+            });
             // session.user.id = sessionUser._id.toString();
             // console.log("Session", sessionUser);
             return session;
@@ -155,16 +152,14 @@ export const authOption: NextAuthOptions = {
             return true;
         },
         async jwt({ token, user, profile, session, account, trigger }) {
-            console.log("JWT", { token })
+            console.log("JWT")
             return token;
         },
-        // async redirect({ url, baseUrl }) {
-        //     // Allows relative callback URLs
-        //     if (url.startsWith("/")) return `${baseUrl}${url}`
-        //     // Allows callback URLs on the same origin
-        //     else if (new URL(url).origin === baseUrl) return url
+        // async redirect({ baseUrl, url }) {
+        //     // console.log({ baseUrl, url });
         //     return baseUrl
         // }
+
     },
     secret: env.NEXTAUTH_SECRET,
     session: {

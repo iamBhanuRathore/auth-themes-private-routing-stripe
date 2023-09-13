@@ -1,34 +1,34 @@
 export const loginButtons = [
   {
     name: "google",
-    src: "/logo-google.svg",
+    src: "/logos/logo-google.svg",
   },
   {
     name: "github",
-    src: "/logo-github.svg",
+    src: "/logos/logo-github.svg",
   },
   {
     name: "facebook",
-    src: "/logo-facebook.svg",
+    src: "/logos/logo-facebook.svg",
   },
   {
     name: "email",
-    src: "/logo-email.svg",
+    src: "/logos/logo-email.svg",
   },
   {
     name: "linkedin",
-    src: "/logo-linkedin.svg",
+    src: "/logos/logo-linkedin.svg",
   },
   {
     name: "netlify",
-    src: "/logo-netlify.svg",
+    src: "/logos/logo-netlify.svg",
   },
   {
     name: "twitter",
-    src: "/logo-twitter.svg",
+    src: "/logos/logo-twitter.svg",
   },
   {
     name: "spotify",
-    src: "/logo-spotify.svg",
+    src: "/logos/logo-spotify.svg",
   },
 ];
