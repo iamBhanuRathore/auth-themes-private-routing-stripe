@@ -1,15 +1,172 @@
-import type { Config } from "tailwindcss";
-import { nextui } from "@nextui-org/react";
+// import type { Config } from "tailwindcss";
+// import { nextui } from "@nextui-org/react";
 
-const config: Config = {
+// const config: Config = {
+//   content: [
+//     "./pages/**/*.{js,ts,jsx,tsx,mdx}",
+//     "./components/**/*.{js,ts,jsx,tsx,mdx}",
+//     "./app/**/*.{js,ts,jsx,tsx,mdx}",
+//     "./node_modules/@nextui-org/theme/dist/**/*.{js,ts,jsx,tsx}",
+//   ],
+//   theme: {
+//     extend: {
+//       backgroundImage: {
+//         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
+//         "gradient-conic":
+//           "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
+//       },
+//     },
+//   },
+//   darkMode: "class",
+
+//   plugins: [
+//     require("@tailwindcss/forms"),
+//     nextui({
+//       themes: {
+//         dark: {
+//           layout: {},
+//           colors: {
+//             primary: {
+//               1: "#030712",
+//               2: "#1f2937",
+//               3: "#4b5563",
+//             },
+//             secondary: {
+//               1: "#f9fafb",
+//               2: "#e5e7eb",
+//               3: "#9ca3af",
+//             },
+//             primaryText: {
+//               1: "#f9fafb",
+//               2: "#d1d5db",
+//               3: "#4b5563",
+//               4: "#111827",
+//             }
+//           },
+//         },
+//         light: {
+//           layout: {},
+//           colors: {
+//             primary: {
+//               1: "#f9fafb",
+//               2: "#e5e7eb",
+//               3: "#9ca3af",
+//             },
+//             secondary: {
+//               1: "#030712",
+//               2: "#1f2937",
+//               3: "#4b5563",
+//             },
+//             primaryText: {
+//               1: "#030712",
+//               2: "#374151",
+//               3: "#9ca3af",
+//               4: "#f3f4f6",
+//             },
+//           },
+//         },
+//         pink: {
+//           extend: "light",
+//           layout: {},
+//           colors: {
+//             primary: {
+//               1: "#fff1f2",
+//               2: "#fecdd3",
+//               3: "#fb7185",
+//             },
+//             secondary: {
+//               1: "#4c0519",
+//               2: "#9f1239",
+//               3: "#e11d48",
+//             }
+//           },
+//         },
+//       },
+//     }),
+//   ],
+// };
+// export default config;
+
+
+// tailwind.config.js
+const { nextui } = require("@nextui-org/react");
+const { extend } = require("tailwindcss");
+
+module.exports = {
   content: [
-    "./pages/**/*.{js,ts,jsx,tsx,mdx}",
-    "./components/**/*.{js,ts,jsx,tsx,mdx}",
-    "./app/**/*.{js,ts,jsx,tsx,mdx}",
-    "./node_modules/@nextui-org/theme/dist/**/*.{js,ts,jsx,tsx}",
+    './pages/**/*.{js,ts,jsx,tsx,mdx}',
+    './components/**/*.{js,ts,jsx,tsx,mdx}',
+    './app/**/*.{js,ts,jsx,tsx,mdx}',
+    './node_modules/@nextui-org/theme/dist/**/*.{js,ts,jsx,tsx}',
+    './pages/**/*.{ts,tsx}',
+    './components/**/*.{ts,tsx}',
+    './app/**/*.{ts,tsx}',
+    './src/**/*.{ts,tsx}',
   ],
+  darkMode: "class",
   theme: {
     extend: {
+      container: {
+        center: true,
+        padding: "2rem",
+        screens: {
+          "2xl": "1400px",
+        },
+      },
+      colors: {
+        border: "hsl(var(--border))",
+        input: "hsl(var(--input))",
+        ring: "hsl(var(--ring))",
+        background: "hsl(var(--background))",
+        foreground: "hsl(var(--foreground))",
+        primary: {
+          DEFAULT: "hsl(var(--primary))",
+          foreground: "hsl(var(--primary-foreground))",
+        },
+        secondary: {
+          DEFAULT: "hsl(var(--secondary))",
+          foreground: "hsl(var(--secondary-foreground))",
+        },
+        destructive: {
+          DEFAULT: "hsl(var(--destructive))",
+          foreground: "hsl(var(--destructive-foreground))",
+        },
+        muted: {
+          DEFAULT: "hsl(var(--muted))",
+          foreground: "hsl(var(--muted-foreground))",
+        },
+        accent: {
+          DEFAULT: "hsl(var(--accent))",
+          foreground: "hsl(var(--accent-foreground))",
+        },
+        popover: {
+          DEFAULT: "hsl(var(--popover))",
+          foreground: "hsl(var(--popover-foreground))",
+        },
+        card: {
+          DEFAULT: "hsl(var(--card))",
+          foreground: "hsl(var(--card-foreground))",
+        },
+      },
+      borderRadius: {
+        lg: "var(--radius)",
+        md: "calc(var(--radius) - 2px)",
+        sm: "calc(var(--radius) - 4px)",
+      },
+      keyframes: {
+        "accordion-down": {
+          from: { height: 0 },
+          to: { height: "var(--radix-accordion-content-height)" },
+        },
+        "accordion-up": {
+          from: { height: "var(--radix-accordion-content-height)" },
+          to: { height: 0 },
+        },
+      },
+      animation: {
+        "accordion-down": "accordion-down 0.2s ease-out",
+        "accordion-up": "accordion-up 0.2s ease-out",
+      },
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
         "gradient-conic":
@@ -17,89 +174,149 @@ const config: Config = {
       },
     },
   },
-  darkMode: "class",
-
   plugins: [
     require("@tailwindcss/forms"),
     nextui({
       themes: {
-        light: {
-          layout: {},
-          colors: {
-            primary: {
-              1: "#ccccc",
-              2: "#f1f5f9",
-              3: "#cbd5e1",
-            },
-            secondary: {
-              1: "#020617",
-              2: "#1e293b",
-              3: "#475569",
-            },
-            primaryText: {
-              1: "#ccccc",
-              2: "#f1f5f9",
-              3: "#cbd5e1",
-            },
-            secondaryText: {
-              1: "#020617",
-              2: "#1e293b",
-              3: "#475569",
-            },
-          },
-        },
         dark: {
           layout: {},
           colors: {
             primary: {
-              1: "#020617",
-              2: "##fecaca",
-              3: "#475569",
+              1: "#030712",
+              2: "#1f2937",
+              3: "#4b5563",
             },
             secondary: {
-              1: "#ccccc",
-              2: "#f1f5f9",
-              3: "#cbd5e1",
+              1: "#f9fafb",
+              2: "#e5e7eb",
+              3: "#9ca3af",
             },
             primaryText: {
-              1: "#020617",
-              2: "#1e293b",
-              3: "#475569",
+              1: "#f9fafb",
+              2: "#d1d5db",
+              3: "#4b5563",
+              4: "#111827",
             },
-            secondaryText: {
-              1: "#ccccc",
-              2: "#f1f5f9",
-              3: "#cbd5e1",
+          },
+        },
+        light: {
+          layout: {},
+          colors: {
+            primary: {
+              1: "#f9fafb",
+              2: "#e5e7eb",
+              3: "#9ca3af",
+            },
+            secondary: {
+              1: "#030712",
+              2: "#1f2937",
+              3: "#4b5563",
+            },
+            primaryText: {
+              1: "#030712",
+              2: "#374151",
+              3: "#9ca3af",
+              4: "#f3f4f6",
             },
           },
         },
         pink: {
+          extend: "light",
           layout: {},
           colors: {
             primary: {
-              1: "#fef2f2",
-              2: "#f9a8d4",
-              3: "#f472b6",
+              1: "#fff1f2",
+              2: "#fecdd3",
+              3: "#fb7185",
             },
             secondary: {
-              1: "#db2777",
-              2: "#be185d",
-              3: "#9d174d",
-            },
-            primaryText: {
-              1: "#fce7f3",
-              2: "#f9a8d4",
-              3: "#f472b6",
-            },
-            secondaryText: {
-              1: "#db2777",
-              2: "#be185d",
-              3: "#9d174d",
+              1: "#4c0519",
+              2: "#9f1239",
+              3: "#e11d48",
             },
           },
         },
       },
     }),
+    require("tailwindcss-animate"),
   ],
 };
-export default config;
+
+
+
+// /** @type {import('tailwindcss').Config} */
+// module.exports = {
+//   darkMode: ["class"],
+//   content: [
+//     './pages/**/*.{ts,tsx}',
+//     './components/**/*.{ts,tsx}',
+//     './app/**/*.{ts,tsx}',
+//     './src/**/*.{ts,tsx}',
+//   ],
+//   theme: {
+//     container: {
+//       center: true,
+//       padding: "2rem",
+//       screens: {
+//         "2xl": "1400px",
+//       },
+//     },
+//     extend: {
+//       colors: {
+//         border: "hsl(var(--border))",
+//         input: "hsl(var(--input))",
+//         ring: "hsl(var(--ring))",
+//         background: "hsl(var(--background))",
+//         foreground: "hsl(var(--foreground))",
+//         primary: {
+//           DEFAULT: "hsl(var(--primary))",
+//           foreground: "hsl(var(--primary-foreground))",
+//         },
+//         secondary: {
+//           DEFAULT: "hsl(var(--secondary))",
+//           foreground: "hsl(var(--secondary-foreground))",
+//         },
+//         destructive: {
+//           DEFAULT: "hsl(var(--destructive))",
+//           foreground: "hsl(var(--destructive-foreground))",
+//         },
+//         muted: {
+//           DEFAULT: "hsl(var(--muted))",
+//           foreground: "hsl(var(--muted-foreground))",
+//         },
+//         accent: {
+//           DEFAULT: "hsl(var(--accent))",
+//           foreground: "hsl(var(--accent-foreground))",
+//         },
+//         popover: {
+//           DEFAULT: "hsl(var(--popover))",
+//           foreground: "hsl(var(--popover-foreground))",
+//         },
+//         card: {
+//           DEFAULT: "hsl(var(--card))",
+//           foreground: "hsl(var(--card-foreground))",
+//         },
+//       },
+//       borderRadius: {
+//         lg: "var(--radius)",
+//         md: "calc(var(--radius) - 2px)",
+//         sm: "calc(var(--radius) - 4px)",
+//       },
+//       keyframes: {
+//         "accordion-down": {
+//           from: { height: 0 },
+//           to: { height: "var(--radix-accordion-content-height)" },
+//         },
+//         "accordion-up": {
+//           from: { height: "var(--radix-accordion-content-height)" },
+//           to: { height: 0 },
+//         },
+//       },
+//       animation: {
+//         "accordion-down": "accordion-down 0.2s ease-out",
+//         "accordion-up": "accordion-up 0.2s ease-out",
+//       },
+//     },
+//   },
+//   plugins: [require("tailwindcss-animate")],
+// }

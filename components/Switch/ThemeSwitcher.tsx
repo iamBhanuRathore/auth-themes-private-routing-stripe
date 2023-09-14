@@ -6,9 +6,11 @@ import { useTheme } from "next-themes"
 import { Button } from '@nextui-org/react';
 const ThemeSwitcher = () => {
     const [mounted, setMounted] = useState(false)
-    const { theme, setTheme } = useTheme();
+    const { theme, setTheme, resolvedTheme, systemTheme } = useTheme();
+    // console.log({ theme, resolvedTheme, systemTheme })
     useEffect(() => {
-        setMounted(true)
+        setMounted(true);
+        setTheme(resolvedTheme || "light");
     }, []);
     if (!mounted) return null
     return (

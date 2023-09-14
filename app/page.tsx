@@ -7,7 +7,7 @@ export default function Home() {
   const router = useRouter();
   const { data: session } = useSession();
   return (
-    <section>
+    <section className="bg-primary-1">
       <p>{JSON.stringify(session)}</p>
       <button onClick={() => router.push("/home")}>Back to home page</button>
       <button

@@ -74,7 +74,7 @@ export const authOption: NextAuthOptions = {
     ],
     callbacks: {
         async session({ session, token, newSession, trigger, user }: any) {
-            console.log("Session Called");
+            // console.log("Session Called");
             if (token.id) {
                 session.user.id = token.id
             }
@@ -90,7 +90,7 @@ export const authOption: NextAuthOptions = {
         async signIn({ user, account, profile, credentials }: any) {
             // console.log({ user, account, profile, credentials });
             if (account.provider !== "credentials") {
-                console.log("Sign In  Called");
+                // console.log("Sign In  Called");
                 try {
                     await connectToDB();
                     const existUser = await User.findOne({
@@ -148,11 +148,10 @@ export const authOption: NextAuthOptions = {
                 // console.log({ user, account, profile, credentials });
                 return true;
             }
-            console.log("hehe")
             return true;
         },
         async jwt({ token, user, profile, session, account, trigger }) {
-            console.log("JWT")
+            // console.log("JWT")
             return token;
         },
         // async redirect({ baseUrl, url }) {

@@ -5,6 +5,7 @@ import { Inter } from "next/font/google";
 import Script from "next/script";
 import { ThemeProvider } from "@/context/Themeprovider";
 import ThemeSwitcher from "@/components/Switch/ThemeSwitcher";
+import Navbar from "@/components/Navbar";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
@@ -18,12 +19,17 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
+    <html lang="en" className="light" style={{
+      colorScheme: "light"
+    }}>
       <body className={inter.className}>
         <AuthProvider>
           <ThemeProvider>
-            <ThemeSwitcher />
-            {children}
+            <main className="bg-primary-1 h-full w-full">
+              <Navbar />
+              {children}
+              <ThemeSwitcher />
+            </main>
           </ThemeProvider>
         </AuthProvider>
         <Script src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></Script>

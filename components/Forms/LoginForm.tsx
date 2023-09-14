@@ -5,8 +5,8 @@ import Image from "next/image";
 import { loginButtons } from "@/config/login-logo";
 import { useSearchParams } from "next/navigation";
 export default function LoginForm() {
+  const [loggingIn, setLoggingIn] = useState(false);
   const searchParams = useSearchParams();
-  console.log("Hehe", searchParams.get("from"));
   const [data, setData] = useState({
     password: "",
     email: "",
@@ -26,13 +26,13 @@ export default function LoginForm() {
         alert("Login failed : " + res.error);
       }
       // alert("Logged In SuccessFully!!");
-      console.log({ res });
+      // console.log({ res });
     });
   };
 
   return (
     <>
-      <div className="flex min-h-full flex-col justify-center bg-primary-2 w-fit h-fit rounded-xl mx-auto px-6 py-12 lg:px-8">
+      <div className="flex min-h-full flex-col justify-center bg-primary-1 w-fit h-fit rounded-xl mx-auto px-6 py-12 lg:px-8">
         <div className="sm:mx-auto sm:w-full sm:max-w-sm">
           <h2 className="text-center text-2xl font-bold leading-9 tracking-tight dark:text-gray-300 text-gray-900">
             Log in to your account
@@ -85,6 +85,7 @@ export default function LoginForm() {
             <div className="space-y-3">
               <button
                 type="submit"
+                disabled={loggingIn}
                 className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
                 Sign in
               </button>
@@ -93,10 +94,15 @@ export default function LoginForm() {
                 {loginButtons.map((item) => (
                   <button
                     type="button"
-                    onClick={() =>
+                    disabled={loggingIn}
+                    onClick={() => {
+                      setLoggingIn(true);
                       signIn(item.name, {
                         callbackUrl: searchParams?.get("from") || "/server",
-                      })
+                      }).finally(() => {
+                        setLoggingIn(false)
+                      });
+                    }
                     }
                     title={`Sign In With ` + item.name}
                     key={item.name}>
@@ -120,8 +126,8 @@ export default function LoginForm() {
               Start a 14 day free trial
             </a>
           </p>
-        </div>
-      </div>
+        </div >
+      </div >
     </>
   );
 }
