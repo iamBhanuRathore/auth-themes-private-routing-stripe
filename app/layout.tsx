@@ -6,6 +6,7 @@ import Script from "next/script";
 import { ThemeProvider } from "@/context/Themeprovider";
 import ThemeSwitcher from "@/components/Switch/ThemeSwitcher";
 import Navbar from "@/components/Navbar";
+import { SiteFooter } from "@/components/Footer/SiteFooter";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
@@ -19,16 +20,20 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className="light" style={{
-      colorScheme: "light"
-    }}>
+    <html
+      lang="en"
+      className="light"
+      style={{
+        colorScheme: "light",
+      }}>
       <body className={inter.className}>
         <AuthProvider>
           <ThemeProvider>
             <main className="bg-primary-1 h-full w-full">
               <Navbar />
               {children}
-              <ThemeSwitcher />
+              {/* <ThemeSwitcher /> */}
+              <SiteFooter />
             </main>
           </ThemeProvider>
         </AuthProvider>
