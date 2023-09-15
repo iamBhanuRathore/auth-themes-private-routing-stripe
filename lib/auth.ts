@@ -12,6 +12,9 @@ import GithubProvider from "next-auth/providers/github";
 import NetlifyProvider from "next-auth/providers/netlify";
 
 export const authOption: NextAuthOptions = {
+    pages: {
+        signIn: "/login",
+      },
     providers: [
         CredentialsProvider({
             name: "credentials",
