@@ -7,6 +7,7 @@ import { ThemeProvider } from "@/context/Themeprovider";
 import ThemeSwitcher from "@/components/Switch/ThemeSwitcher";
 import Navbar from "@/components/Navbar";
 import { SiteFooter } from "@/components/Footer/SiteFooter";
+import { Toaster } from "@/components/ui/toaster"
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
@@ -31,6 +32,7 @@ export default function RootLayout({
           <ThemeProvider>
             <main className="bg-primary-1 h-full w-full">
               <Navbar />
+              <Toaster/>
               {children}
               {/* <ThemeSwitcher /> */}
               <SiteFooter />

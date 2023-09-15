@@ -11,7 +11,7 @@ export async function generateMetadata() {
 }
 
 export default async function DashboardLayout({
-  children,
+  children,                                     
 }: {
   children: React.ReactNode;
 }) {
