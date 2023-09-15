@@ -1,10 +1,11 @@
-import React from 'react'
-
-const Dashboard = () => {
+import { redirect } from "next/navigation"  
+import { getCurrentUser } from "@/lib/sesssion"
+import { authOption } from '@/lib/auth';
+const Dashboard = async () => {
     return (
-        <div>
+        <DashboardShel>
             Dashboard
-        </div>
+        </DashboardShel>
     )
 }
 

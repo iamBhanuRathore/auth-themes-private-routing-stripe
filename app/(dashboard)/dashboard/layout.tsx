@@ -1,7 +1,6 @@
-import type { Metadata } from "next";
-// import Navbar from "@/components/Navbar";
 import { getCurrentUser } from "@/lib/sesssion";
-// import { SiteFooter } from "@/components/Footer/SiteFooter";
+import DashboardNav from "@/components/Dashboard/DashboardNav";
+import { dashboardConfig } from "@/config/dashboard";
 
 export async function generateMetadata() {
   const user = await getCurrentUser();
@@ -18,16 +17,14 @@ export default async function DashboardLayout({
 }) {
   return (
     <>
-      <main className="bg-primary-1 grid flex-1 gap-12 md:grid-cols-[200px_1fr]">
+      <main className="container bg-primary-1 grid flex-1 gap-12 md:grid-cols-[200px_1fr]">
         <aside className="hidden w-[200px] flex-col md:flex">
-          <p>HEHE</p>
           <DashboardNav items={dashboardConfig.sidebarNav} />
         </aside>
         <main className="flex w-full flex-1 flex-col overflow-hidden">
           {children}
         </main>
       </main>
-      {/* <SiteFooter /> */}
     </>
   );
 }
