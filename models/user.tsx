@@ -13,9 +13,6 @@ const UserSchema = new Schema({
 const user = models.User || model("User", UserSchema);
 export default user;
 
-
-
-
 // const mongoose = require('mongoose');
 
 // const accountSchema = new mongoose.Schema({

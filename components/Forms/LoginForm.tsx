@@ -44,7 +44,8 @@ export default function LoginForm() {
             <div>
               <label
                 htmlFor="email"
-                className="block text-sm font-medium leading-6 dark:text-gray-300 text-gray-900">
+                className="block text-sm font-medium leading-6 dark:text-gray-300 text-gray-900"
+              >
                 Email address
               </label>
               <div className="mt-2">
@@ -54,7 +55,7 @@ export default function LoginForm() {
                   name="email"
                   type="email"
                   required
-                  className="block w-full rounded-md border-0 py-1.5 dark:text-gray-300 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                  className="block w-full rounded-md border-0 py-1.5 dark:bg-gray-700 dark:text-gray-300 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                 />
               </div>
             </div>
@@ -63,7 +64,8 @@ export default function LoginForm() {
               <div className="flex items-center justify-between">
                 <label
                   htmlFor="password"
-                  className="block text-sm font-medium leading-6 dark:text-gray-300 text-gray-900">
+                  className="block text-sm font-medium leading-6 dark:text-gray-300 text-gray-900"
+                >
                   Password
                 </label>
                 {/* <div className="text-sm">
@@ -77,7 +79,7 @@ export default function LoginForm() {
                   name="password"
                   type="password"
                   required
-                  className="block w-full rounded-md border-0 py-1.5 dark:text-gray-300 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                  className="block w-full rounded-md border-0 py-1.5 dark:bg-gray-700 dark:text-gray-300 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                 />
               </div>
             </div>
@@ -86,7 +88,8 @@ export default function LoginForm() {
               <button
                 type="submit"
                 disabled={loggingIn}
-                className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
+                className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+              >
                 Sign in
               </button>
               <p>Sign In With Different Social Accounts</p>
@@ -100,12 +103,12 @@ export default function LoginForm() {
                       signIn(item.name, {
                         callbackUrl: searchParams?.get("from") || "/server",
                       }).finally(() => {
-                        setLoggingIn(false)
+                        setLoggingIn(false);
                       });
-                    }
-                    }
+                    }}
                     title={`Sign In With ` + item.name}
-                    key={item.name}>
+                    key={item.name}
+                  >
                     <Image
                       src={item.src}
                       alt={item.name}
@@ -122,12 +125,13 @@ export default function LoginForm() {
             Not a member?
             <a
               href="#"
-              className="font-semibold leading-6 text-gray-600 hover:text-indigo-500">
+              className="font-semibold leading-6 text-gray-600 hover:text-indigo-500"
+            >
               Start a 14 day free trial
             </a>
           </p>
-        </div >
-      </div >
+        </div>
+      </div>
     </>
   );
 }

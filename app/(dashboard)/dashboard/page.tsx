@@ -6,13 +6,17 @@ import { DashboardHeader } from "@/components/Dashboard/DashboardHeader";
 import { PostCreateButton } from "@/components/Dashboard/PostCreateButton";
 import { PostItem } from "@/components/Dashboard/PostItem";
 import { EmptyPlaceholder } from "@/components/Dashboard/EmptyPlaceholder";
+import axios from "axios";
+import { getServerSession } from "next-auth";
 const Dashboard = async () => {
   const user = await getCurrentUser();
-
+  const session = await getServerSession(authOption);
+  console.log({ session });
   if (!user) {
     redirect(authOption?.pages?.signIn || "/login");
   }
   const posts: any[] = [1, 2];
+
   return (
     <DashboardShell>
       <DashboardHeader heading="Posts" text="Create and manage posts.">
