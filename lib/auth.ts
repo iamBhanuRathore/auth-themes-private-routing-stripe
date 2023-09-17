@@ -35,7 +35,7 @@ export const authOption: NextAuthOptions = {
         },
       },
       async authorize(credentials) {
-        console.log({ credentials });
+        console.log("credentials", { credentials });
         try {
           await connectToDB();
           if (!credentials?.email || !credentials?.password) {
@@ -78,7 +78,7 @@ export const authOption: NextAuthOptions = {
   ],
   callbacks: {
     async session({ session, token }: any) {
-      // console.log("Session Called", { token, session });
+      console.log("Session Called");
       if (token.id) {
         session.user.id = token.id;
       }
@@ -154,12 +154,17 @@ export const authOption: NextAuthOptions = {
       }
       return true;
     },
-    async jwt({ token, user, profile, session, account, trigger }) {
-      // console.log("JWT", { token, user, profile, session, account, trigger });
-      if (user) {
-        token.id = user.id;
-      }
-      return token;
+    async jwt({ token, user }) {
+      const dbUser = await User.findOne({
+        email: token.email,
+      });
+      return {
+        ...token,
+        id: dbUser._id.toString(),
+        name: dbUser.name,
+        email: dbUser.email,
+        picture: dbUser.image,
+      };
     },
     // async redirect({ baseUrl, url }) {
     //     // console.log({ baseUrl, url });

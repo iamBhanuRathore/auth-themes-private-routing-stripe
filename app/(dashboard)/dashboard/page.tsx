@@ -8,13 +8,17 @@ import { PostItem } from "@/components/Dashboard/PostItem";
 import { EmptyPlaceholder } from "@/components/Dashboard/EmptyPlaceholder";
 import axios from "axios";
 import { getServerSession } from "next-auth";
+import Post from "@/models/post";
 const Dashboard = async () => {
   const user = await getCurrentUser();
-  const session = await getServerSession(authOption);
-  console.log({ session });
+  // console.log(user);
   if (!user) {
     redirect(authOption?.pages?.signIn || "/login");
   }
+  // !! Need to update the static post array to the Database Pposts
+  // const posts = await Post.find({
+  //   authorId: user?.id,
+  // });
   const posts: any[] = [1, 2];
 
   return (

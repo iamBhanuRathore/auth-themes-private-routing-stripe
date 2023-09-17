@@ -7,9 +7,13 @@ const UserSchema = new Schema({
   image: String,
   hashedPassword: String,
   createdAt: { type: Date, default: Date.now },
-  updatedAt: Date,
+  updatedAt: Date, // Reference to Account model
+  sessions: [{ type: Schema.Types.ObjectId, ref: "Session" }], // Reference to Session model
+  stripeCustomerId: { type: String, unique: true },
+  stripeSubscriptionId: { type: String, unique: true },
+  stripePriceId: String,
+  stripeCurrentPeriodEnd: Date,
 });
-
 const user = models.User || model("User", UserSchema);
 export default user;
 

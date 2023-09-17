@@ -19,41 +19,44 @@ export function PostCreateButton({
   const [isLoading, setIsLoading] = React.useState<boolean>(false);
 
   async function onClick() {
-    // setIsLoading(true);
+    setIsLoading(true);
+    try {
+      const response = await fetch("/api/posts", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          title: "Untitled Post",
+        }),
+      });
 
-    // const response = await fetch("/api/posts", {
-    //   method: "POST",
-    //   headers: {
-    //     "Content-Type": "application/json",
-    //   },
-    //   body: JSON.stringify({
-    //     title: "Untitled Post",
-    //   }),
-    // });
+      setIsLoading(false);
 
-    // setIsLoading(false);
+      if (!response?.ok) {
+        if (response.status === 402) {
+          return toast({
+            title: "Limit of 3 posts reached.",
+            description: "Please upgrade to the PRO plan.",
+            variant: "destructive",
+          });
+        }
+        toast({
+          title: "Something went wrong.",
+          description: "Your post was not created. Please try again.",
+          variant: "destructive",
+        });
+      }
 
-    // if (!response?.ok) {
-    //   if (response.status === 402) {
-    //     return toast({
-    //       title: "Limit of 3 posts reached.",
-    //       description: "Please upgrade to the PRO plan.",
-    //       variant: "destructive",
-    //     });
-    //   }
-   toast({
-      title: "Something went wrong.",
-      description: "Your post was not created. Please try again.",
-      variant: "destructive",
-    });
-    // }
+      const post = await response.json();
 
-    // const post = await response.json();
+      // Todo - This forces a cache invalidation.
+      router.refresh();
 
-    // // This forces a cache invalidation.
-    // router.refresh();
-
-    // router.push(`/editor/${post.id}`);
+      router.push(`/editor/${post.id}`);
+    } catch (error) {
+      console.log(error.message);
+    }
   }
   return (
     <button
@@ -66,8 +69,7 @@ export function PostCreateButton({
         className
       )}
       disabled={isLoading}
-      {...props}
-    >
+      {...props}>
       {isLoading ? (
         <Icons.Loader2 className="mr-2 h-4 w-4 animate-spin" />
       ) : (
