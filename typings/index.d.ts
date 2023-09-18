@@ -60,3 +60,12 @@ export type SubscriptionPlan = {
 //         stripeCurrentPeriodEnd: number
 //         isPro: boolean
 //     }
+export type Post = {
+  id: string;
+  title: String;
+  content: any;
+  published: Date;
+  createdAt: Date;
+  updatedAt: Date;
+  authorId: String;
+};

@@ -1,19 +1,22 @@
 import { notFound, redirect } from "next/navigation";
-
 import { authOption } from "@/lib/auth";
 import { getCurrentUser } from "@/lib/sesssion";
 // import { Editor } from "@/components/editor";
 import Post from "@/models/post";
 import { connectToDB } from "@/lib/db";
+import { Editor } from "@/components/Dashboard/Editor";
 
 async function getPostForUser(postId: any, userId: any) {
-  await connectToDB();
-  const a = await Post.findById(postId);
-  if (!a) {
-    return false;
+  try {
+    await connectToDB();
+    return await Post.findOne({
+      _id: postId,
+      authorId: userId,
+    });
+  } catch (error) {
+    console.log(error);
+    return null;
   }
-  console.log(a);
-  return a;
 }
 
 interface EditorPageProps {
@@ -28,21 +31,20 @@ export default async function EditorPage({ params }: EditorPageProps) {
   console.log({ params });
 
   const post = await getPostForUser(params.postId, user.id);
-  console.log(post);
+  console.log({ post });
   if (!post) {
     notFound();
   }
 
   return (
-    <p>{JSON.stringify(post)}</p>
-    // <Editor
-    //   post={{
-    //     id: post.id,
-    //     title: post.title,
-    //     content: post.content,
-    //     published: post.published,
-    //   }}
-    // />
+    <Editor
+      post={{
+        id: post.id,
+        title: post.title,
+        content: post.content,
+        published: post.published,
+      }}
+    />
   );
 }
 
