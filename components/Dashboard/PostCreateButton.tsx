@@ -27,7 +27,7 @@ export function PostCreateButton({
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          title: "Untitled Post",
+          title: "New One",
         }),
       });
 
@@ -53,7 +53,7 @@ export function PostCreateButton({
       // Todo - This forces a cache invalidation.
       router.refresh();
 
-      router.push(`/editor/${post.id}`);
+      router.push(`/editor/${post._id}`);
     } catch (error) {
       console.log(error.message);
     }
@@ -69,7 +69,8 @@ export function PostCreateButton({
         className
       )}
       disabled={isLoading}
-      {...props}>
+      {...props}
+    >
       {isLoading ? (
         <Icons.Loader2 className="mr-2 h-4 w-4 animate-spin" />
       ) : (
