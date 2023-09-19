@@ -42,6 +42,7 @@ export const config = {
     "/register",
     "/home",
     "/serverpage",
+    "/dashboad",
     "/dashboard/:path*",
   ],
   // exclude: ["/logos/:path*"],
