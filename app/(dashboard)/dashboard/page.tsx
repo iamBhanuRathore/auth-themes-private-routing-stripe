@@ -16,10 +16,10 @@ const Dashboard = async () => {
     redirect(authOption?.pages?.signIn || "/login");
   }
   // !! Need to update the static post array to the Database Pposts
-  // const posts = await Post.find({
-  //   authorId: user?.id,
-  // });
-  const posts: any[] = [1, 2];
+  const posts = await Post.find({
+    authorId: user?.id,
+  });
+  // const posts: any[] = [1, 2];
 
   return (
     <DashboardShell>

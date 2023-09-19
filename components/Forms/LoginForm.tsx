@@ -20,7 +20,7 @@ export default function LoginForm() {
     signIn("credentials", {
       ...data,
       redirect: false,
-      callbackUrl: searchParams?.get("from") || "/server",
+      callbackUrl: searchParams?.get("from") || "/serverpage",
     }).then((res) => {
       if (res?.error) {
         alert("Login failed : " + res.error);
@@ -101,7 +101,7 @@ export default function LoginForm() {
                     onClick={() => {
                       setLoggingIn(true);
                       signIn(item.name, {
-                        callbackUrl: searchParams?.get("from") || "/server",
+                        callbackUrl: searchParams?.get("from") || "/serverpage",
                       }).finally(() => {
                         setLoggingIn(false);
                       });

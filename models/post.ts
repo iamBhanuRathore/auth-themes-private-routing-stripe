@@ -2,7 +2,7 @@ import mongoose, { Schema, model, models } from "mongoose";
 
 const postSchema = new Schema({
   title: String,
-  content: mongoose.Schema.Types.Mixed,
+  content: [],
   published: { type: Boolean, default: false },
   createdAt: { type: Date, default: Date.now },
   updatedAt: { type: Date, default: Date.now },

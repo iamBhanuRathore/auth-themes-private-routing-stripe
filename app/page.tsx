@@ -20,7 +20,7 @@ export default function Home() {
       </button>
       <button
         onClick={() => {
-          router.push("/server");
+          router.push("/serverpage");
         }}
       >
         Go to server Page

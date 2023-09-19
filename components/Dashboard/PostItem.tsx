@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { formatDate } from "@/lib/utils";
 import { Skeleton } from "@/components/ui/skeleton";
-// import { PostOperations } from "@/components/post-operations"
+import { PostOperations } from "./PostOperations";
 
 type Post = {
   id: string;
@@ -32,7 +32,7 @@ export function PostItem({ post }: PostItemProps) {
           </p>
         </div>
       </div>
-      {/* <PostOperations post={{ id: post.id, title: post.title }} /> */}
+      <PostOperations post={{ id: post.id, title: post.title }} />
     </div>
   );
 }

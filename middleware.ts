@@ -41,7 +41,7 @@ export const config = {
     "/login",
     "/register",
     "/home",
-    "/server",
+    "/serverpage",
     "/dashboard/:path*",
   ],
   // exclude: ["/logos/:path*"],

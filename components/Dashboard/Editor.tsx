@@ -42,6 +42,7 @@ export function Editor({ post }: EditorProps) {
     const InlineCode = (await import("@editorjs/inline-code")).default;
 
     const body = postPatchSchema.parse(post);
+    console.log(post);
 
     if (!ref.current) {
       const editor = new EditorJS({
@@ -51,7 +52,7 @@ export function Editor({ post }: EditorProps) {
         },
         placeholder: "Type here to write your post...",
         inlineToolbar: true,
-        data: body.content,
+        data: body.content[0],
         tools: {
           header: Header,
           linkTool: LinkTool,
@@ -99,7 +100,7 @@ export function Editor({ post }: EditorProps) {
     });
 
     setIsSaving(false);
-
+    console.log(response);
     if (!response?.ok) {
       return toast({
         title: "Something went wrong.",
@@ -126,7 +127,8 @@ export function Editor({ post }: EditorProps) {
           <div className="flex items-center space-x-10">
             <Link
               href="/dashboard"
-              className={cn(buttonVariants({ variant: "ghost" }))}>
+              className={cn(buttonVariants({ variant: "ghost" }))}
+            >
               <>
                 <Icons.ChevronLeft className="mr-2 h-4 w-4" />
                 Back
@@ -149,7 +151,7 @@ export function Editor({ post }: EditorProps) {
             id="title"
             defaultValue={post.title}
             placeholder="Post title"
-            className="w-full resize-none appearance-none overflow-hidden bg-transparent text-5xl font-bold focus:outline-none"
+            className="w-full resize-none appearance-none overflow-hidden bg-transparent text-5xl font-bold focus:outline-none border-0 ring-0"
             {...register("title")}
           />
           <div id="editor" className="min-h-[500px]" />

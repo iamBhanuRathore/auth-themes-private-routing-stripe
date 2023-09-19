@@ -11,13 +11,13 @@ export async function generateMetadata() {
 }
 
 export default async function DashboardLayout({
-  children,                                     
+  children,
 }: {
   children: React.ReactNode;
 }) {
   return (
     <>
-      <main className="container bg-primary-1 grid flex-1 gap-12 md:grid-cols-[200px_1fr]">
+      <main className="container bg-primary-1 grid gap-12 py-6 min-h-[480px] md:grid-cols-[200px_1fr]">
         <aside className="hidden w-[200px] flex-col md:flex">
           <DashboardNav items={dashboardConfig.sidebarNav} />
         </aside>

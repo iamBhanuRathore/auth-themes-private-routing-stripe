@@ -31,7 +31,7 @@ export default async function EditorPage({ params }: EditorPageProps) {
   console.log({ params });
 
   const post = await getPostForUser(params.postId, user.id);
-  console.log({ post });
+  // console.log({ post });
   if (!post) {
     notFound();
   }
