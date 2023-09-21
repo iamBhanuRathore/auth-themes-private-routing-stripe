@@ -16,13 +16,13 @@ export async function getUserSubscriptionPlan(
   if (!user) {
     throw new Error("User not found");
   }
-
   // Check if user is on a pro plan.
   const isPro =
     user.stripePriceId &&
     user.stripeCurrentPeriodEnd?.getTime() + 86_400_000 > Date.now();
 
   const plan = isPro ? proPlan : freePlan;
+  console.log("Subscription", user, plan, isPro);
 
   return {
     ...plan,

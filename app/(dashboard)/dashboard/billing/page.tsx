@@ -24,6 +24,7 @@ const Billing = async () => {
   }
 
   const subscriptionPlan = await getUserSubscriptionPlan(user.id);
+  // console.log({ subscriptionPlan });
 
   // If user has a pro plan, check cancel status on Stripe.
   let isCanceled = false;
