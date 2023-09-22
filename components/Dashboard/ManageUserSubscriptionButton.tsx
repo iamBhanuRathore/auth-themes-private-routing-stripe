@@ -3,6 +3,7 @@ import React, { FormEvent } from "react";
 import { FormSubmitHandler } from "react-hook-form";
 import { Button } from "../ui/button";
 import { toast } from "@/components/ui/use-toast";
+import axios from "axios";
 
 const ManageUserSubscriptionButton = ({
   userId,
@@ -16,11 +17,22 @@ const ManageUserSubscriptionButton = ({
   async function onSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
     setIsLoading(!isLoading);
+    console.log("Till the api");
 
     // Get a Stripe session URL.
-    const response = await fetch("/api/users/stripe");
-
-    if (!response?.ok) {
+    try {
+      const { data } = await axios.post("/api/users/stripe", {
+        userId,
+        email,
+        stripePriceId,
+        stripeCustomerId,
+        isSubscribed,
+        isCurrentPlan,
+      });
+      if (data) {
+        window.location.href = data.url;
+      }
+    } catch (error) {
       return toast({
         title: "Something went wrong.",
         description: "Please refresh the page and try again.",
@@ -31,10 +43,6 @@ const ManageUserSubscriptionButton = ({
     // Redirect to the Stripe session.
     // This could be a checkout page for initial upgrade.
     // Or portal to manage existing subscription.
-    const session = await response.json();
-    if (session) {
-      window.location.href = session.url;
-    }
   }
   return (
     <form onSubmit={onSubmit}>

@@ -17,7 +17,7 @@ interface BillingFormProps extends React.HTMLAttributes<HTMLFormElement> {
 }
 
 export function BillingForm({ subscriptionPlan, user }: BillingFormProps) {
-  console.log({ subscriptionPlan, user });
+  // console.log({ subscriptionPlan, user });
 
   return (
     <Card>

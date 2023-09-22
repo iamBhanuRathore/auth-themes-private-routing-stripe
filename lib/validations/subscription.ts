@@ -1,21 +1,10 @@
 // @ts-nocheck
 // TODO: Fix this when we turn strict mode on.
-import { UserSubscriptionPlan } from "@/typings";
 import { allPlans, freePlan } from "@/config/subscriptions";
 import User from "@/models/user";
 import { connectToDB } from "../db";
-import { getCurrentUser } from "../sesssion";
-import { redirect } from "next/navigation";
-import { stripe } from "../stripe";
 
-export async function getUserSubscriptionPlan(
-  userId: string
-): Promise<UserSubscriptionPlan> {
-  // const user = getCurrentUser();
-
-  // if (!user) {
-  //   redirect(authOption?.pages?.signIn || "/login");
-  // }
+export async function getUserSubscriptionPlan(userId: string): Promise<any> {
   await connectToDB();
   const user = await User.findOne({
     _id: userId,
@@ -24,11 +13,6 @@ export async function getUserSubscriptionPlan(
   if (!user) {
     return null;
   }
-  // Check if user is on a pro plan.
-  // const isPro =
-  //   user.stripePriceId &&
-  //   user.stripeCurrentPeriodEnd &&
-  //   user.stripeCurrentPeriodEnd?.getTime() + 86_400_000 > Date.now();
   const isSubscribed =
     user.stripePriceId &&
     user.stripeCurrentPeriodEnd &&

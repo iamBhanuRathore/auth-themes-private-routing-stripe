@@ -21,6 +21,7 @@ export const env = createEnv({
     NEXT_PUBLIC_STRIPE_MONTHLY_PLAN_ID_GOLD: z.string().min(5),
     NEXT_PUBLIC_STRIPE_MONTHLY_PLAN_ID_PREMIUM: z.string().min(5),
     STRIPE_SECRET_KEY: z.string().min(5),
+    STRIPE_WEBHOOK_SECRET: z.string().min(5),
   },
   runtimeEnv: {
     GOOGLE_CLIENT_ID: process.env.GOOGLE_CLIENT_ID,
@@ -42,5 +43,6 @@ export const env = createEnv({
     NEXT_PUBLIC_STRIPE_MONTHLY_PLAN_ID_PREMIUM:
       process.env.NEXT_PUBLIC_STRIPE_MONTHLY_PLAN_ID_PREMIUM,
     STRIPE_SECRET_KEY: process.env.STRIPE_SECRET_KEY,
+    STRIPE_WEBHOOK_SECRET: process.env.STRIPE_WEBHOOK_SECRET,
   },
 });
