@@ -5,6 +5,7 @@ import { postPatchSchema } from "@/lib/validations/post";
 import { signOut } from "next-auth/react";
 import Post from "@/models/post";
 import { getCurrentUser } from "@/lib/sesssion";
+import { connectToDB } from "@/lib/db";
 
 const routeContextSchema = z.object({
   params: z.object({
@@ -56,6 +57,7 @@ async function verifyCurrentUserHasAccessToPost(postId: string) {
     return signOut();
   }
   try {
+    await connectToDB();
     // Query the database to find a post with the given postId and authorId
     const post = await Post.findOne({ _id: postId, authorId: user.id });
     console.log(5);

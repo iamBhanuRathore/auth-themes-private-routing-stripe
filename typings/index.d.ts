@@ -1,5 +1,11 @@
 import * as Icons from "lucide-react";
 
+export type User = {
+  name: string;
+  email: string;
+  id: string;
+  image: string;
+};
 export type NavItem = {
   title: string;
   href: string;
@@ -53,7 +59,9 @@ export type SubscriptionPlan = {
   name: string;
   description: string;
   stripePriceId: string;
+  price: number;
 };
+type SubscriptionPlans = SubscriptionPlan[];
 
 export type UserSubscriptionPlan = SubscriptionPlan &
   Pick<User, "stripeCustomerId" | "stripeSubscriptionId"> & {

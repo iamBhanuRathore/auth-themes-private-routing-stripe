@@ -155,6 +155,7 @@ export const authOption: NextAuthOptions = {
       return true;
     },
     async jwt({ token, user }) {
+      await connectToDB();
       const dbUser = await User.findOne({
         email: token.email,
       });
