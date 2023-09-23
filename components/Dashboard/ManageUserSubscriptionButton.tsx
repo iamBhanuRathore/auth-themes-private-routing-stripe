@@ -4,6 +4,8 @@ import { FormSubmitHandler } from "react-hook-form";
 import { Button } from "../ui/button";
 import { toast } from "@/components/ui/use-toast";
 import axios from "axios";
+import User from "@/models/user";
+import { getCurrentUser } from "@/lib/sesssion";
 
 const ManageUserSubscriptionButton = ({
   userId,
@@ -14,6 +16,7 @@ const ManageUserSubscriptionButton = ({
   isCurrentPlan,
 }: any) => {
   const [isLoading, setIsLoading] = React.useState<boolean>(false);
+
   async function onSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
     setIsLoading(!isLoading);

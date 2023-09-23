@@ -159,6 +159,7 @@ export const authOption: NextAuthOptions = {
       const dbUser = await User.findOne({
         email: token.email,
       });
+      // console.log({ dbUser });
       return {
         ...token,
         id: dbUser._id.toString(),

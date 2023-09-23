@@ -10,15 +10,17 @@ import {
 } from "@/components/ui/card";
 import { allPlans } from "@/config/subscriptions";
 import ManageUserSubscriptionButton from "./ManageUserSubscriptionButton";
-
+import { getCurrentUser } from "@/lib/sesssion";
+import newUser from "@/models/user";
 interface BillingFormProps extends React.HTMLAttributes<HTMLFormElement> {
   subscriptionPlan: UserSubscriptionPlan;
   user: User;
 }
 
-export function BillingForm({ subscriptionPlan, user }: BillingFormProps) {
-  // console.log({ subscriptionPlan, user });
-
+export async function BillingForm({
+  subscriptionPlan,
+  user,
+}: BillingFormProps) {
   return (
     <Card>
       <CardHeader>
