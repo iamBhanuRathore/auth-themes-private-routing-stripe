@@ -20,6 +20,16 @@ export async function POST(req: Request) {
     if (!userId || !email) {
       return new Response(null, { status: 403 });
     }
+    console.log(
+      "Stripe Api is Called",
+      userId,
+      email,
+      stripePriceId,
+      stripeCustomerId,
+      isSubscribed,
+      isCurrentPlan
+    );
+
     // const {
     //   stripeCurrentPeriodEnd,
     //   stripeCustomerId,
@@ -27,9 +37,9 @@ export async function POST(req: Request) {
     //   isSubscribed,
     //   isCurrentPlan,
     // } = await getUserSubscriptionPlan(user.id);
-    // !! For the Manage Subscription , The user already hacve a subscription
+    // !! For the Manage Subscription , The user already have a subscription
     if (isSubscribed && stripeCustomerId && isCurrentPlan) {
-      console.log("On the Api 2");
+      console.log("isSubscribed && stripeCustomerId && isCurrentPlan");
       const stripeSession = await stripe.billingPortal.sessions.create({
         customer: stripeCustomerId,
         return_url: billingUrl,
@@ -38,8 +48,6 @@ export async function POST(req: Request) {
         status: 201,
       });
     }
-    console.log("On the Api 3");
-
     const stripeSession = await stripe.checkout.sessions.create({
       success_url: billingUrl,
       cancel_url: billingUrl,
@@ -54,10 +62,10 @@ export async function POST(req: Request) {
         },
       ],
       metadata: {
-        userId,
+        userId: userId,
       },
     });
-    console.log("On the Api 4");
+    console.log("stripe.checkout.sessions.create");
     return new Response(
       JSON.stringify({
         url: stripeSession.url,
