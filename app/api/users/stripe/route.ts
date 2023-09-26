@@ -79,7 +79,6 @@ export async function POST(req: Request) {
     if (error instanceof z.ZodError) {
       return new Response(JSON.stringify(error.issues), { status: 422 });
     }
-
     return new Response(JSON.stringify(error), { status: 500 });
   }
 }
