@@ -26,7 +26,7 @@ export async function BillingForm({
       <CardHeader>
         <CardTitle>Subscription Plan</CardTitle>
         <CardDescription>
-          You are currently on the <strong>{subscriptionPlan.name}</strong>{" "}
+          You are currently on the <strong>{subscriptionPlan.plan.name}</strong>{" "}
           plan.
         </CardDescription>
       </CardHeader>
@@ -47,7 +47,7 @@ export async function BillingForm({
                     email={user?.email}
                     stripePriceId={plan.stripePriceId}
                     stripeCustomerId={subscriptionPlan.stripeCustomerId}
-                    isSubscribed={!!subscriptionPlan.isPro}
+                    isSubscribed={subscriptionPlan.isSubscribed}
                     isCurrentPlan={subscriptionPlan.plan.name === plan.name}
                   />
                 </CardFooter>

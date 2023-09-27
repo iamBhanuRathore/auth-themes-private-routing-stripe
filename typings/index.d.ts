@@ -68,6 +68,7 @@ export type UserSubscriptionPlan = SubscriptionPlan &
     stripeCurrentPeriodEnd: number;
     isPro: boolean;
     plan: SubscriptionPlan;
+    isSubscribed: boolean;
   };
 export type Post = {
   id: string;

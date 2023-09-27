@@ -14,6 +14,8 @@ export async function getUserSubscriptionPlan(userId: string): Promise<any> {
   if (!user) {
     return null;
   }
+  // console.log({ user });
+
   const isSubscribed =
     user.stripePriceId &&
     user.stripeCurrentPeriodEnd &&
@@ -28,12 +30,14 @@ export async function getUserSubscriptionPlan(userId: string): Promise<any> {
       })[0]
     : freePlan;
   let isCanceled = false;
-  // console.log({ plan });
+  // console.log({ user });
 
   if (isSubscribed && user.stripeSubscriptionId) {
     const stripePlan = await stripe.subscriptions.retrieve(
       user.stripeSubscriptionId
     );
+    // console.log({ stripePlan });
+
     isCanceled = stripePlan.cancel_at_period_end;
   }
   return {
@@ -41,6 +45,7 @@ export async function getUserSubscriptionPlan(userId: string): Promise<any> {
     ...user,
     stripeSubscriptionId: user.stripeSubscriptionId,
     stripeCurrentPeriodEnd: user.stripeCurrentPeriodEnd?.getTime(),
+    stripeCustomerId: user.stripeCustomerId,
     isSubscribed,
     isCanceled,
   };
