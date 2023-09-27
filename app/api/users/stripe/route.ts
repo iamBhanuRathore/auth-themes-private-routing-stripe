@@ -37,6 +37,7 @@ export async function POST(req: Request) {
     //   isSubscribed,
     //   isCurrentPlan,
     // } = await getUserSubscriptionPlan(user.id);
+
     // !! For the Manage Subscription , The user already have a subscription
     if (isSubscribed && stripeCustomerId && isCurrentPlan) {
       console.log("isSubscribed && stripeCustomerId && isCurrentPlan");

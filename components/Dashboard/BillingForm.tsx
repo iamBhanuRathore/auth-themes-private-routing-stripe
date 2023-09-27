@@ -48,7 +48,7 @@ export async function BillingForm({
                     stripePriceId={plan.stripePriceId}
                     stripeCustomerId={subscriptionPlan.stripeCustomerId}
                     isSubscribed={!!subscriptionPlan.isPro}
-                    isCurrentPlan={subscriptionPlan.name == plan.name}
+                    isCurrentPlan={subscriptionPlan.plan.name === plan.name}
                   />
                 </CardFooter>
               </Card>

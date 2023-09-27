@@ -67,6 +67,7 @@ export type UserSubscriptionPlan = SubscriptionPlan &
   Pick<User, "stripeCustomerId" | "stripeSubscriptionId"> & {
     stripeCurrentPeriodEnd: number;
     isPro: boolean;
+    plan: SubscriptionPlan;
   };
 export type Post = {
   id: string;

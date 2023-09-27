@@ -3,6 +3,7 @@
 import { allPlans, freePlan } from "@/config/subscriptions";
 import User from "@/models/user";
 import { connectToDB } from "../db";
+import { stripe } from "../stripe";
 
 export async function getUserSubscriptionPlan(userId: string): Promise<any> {
   await connectToDB();
@@ -20,9 +21,15 @@ export async function getUserSubscriptionPlan(userId: string): Promise<any> {
   // const plan = isPro ? proPlan : freePlan;
   // console.log("Subscription", user, plan, isPro);
   const plan = isSubscribed
-    ? allPlans.map((p) => p.stripePriceId === user.stripePriceId)
+    ? allPlans.filter((p) => {
+        if (p.stripePriceId === user.stripePriceId) {
+          return p;
+        }
+      })[0]
     : freePlan;
   let isCanceled = false;
+  // console.log({ plan });
+
   if (isSubscribed && user.stripeSubscriptionId) {
     const stripePlan = await stripe.subscriptions.retrieve(
       user.stripeSubscriptionId
@@ -30,7 +37,7 @@ export async function getUserSubscriptionPlan(userId: string): Promise<any> {
     isCanceled = stripePlan.cancel_at_period_end;
   }
   return {
-    ...plan,
+    plan,
     ...user,
     stripeSubscriptionId: user.stripeSubscriptionId,
     stripeCurrentPeriodEnd: user.stripeCurrentPeriodEnd?.getTime(),

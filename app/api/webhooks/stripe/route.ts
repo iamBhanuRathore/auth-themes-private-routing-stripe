@@ -38,7 +38,7 @@ export async function POST(req: Request) {
     );
   }
   const session = event.data.object as Stripe.Checkout.Session;
-  console.log({ session });
+  // console.log({ session });
   if (!session.metadata?.userId) {
     console.log("session.metadata?.userId");
     return new Response(null, { status: 200 });
@@ -51,9 +51,9 @@ export async function POST(req: Request) {
     console.log("checkout.session.completed");
 
     await connectToDB();
-    await User.findByIdAndUpdate(session.metadata.useId, {
-      stripeCustomerId: subscription.id,
-      stripeSubscriptionId: subscription.customer as string,
+    await User.findByIdAndUpdate(session.metadata.userId, {
+      stripeSubscriptionId: subscription.id,
+      stripeCustomerId: subscription.customer as string,
       stripePriceId: subscription.items.data[0].price.id,
       stripeCurrentPeriodEnd: new Date(subscription.current_period_end * 1000),
     });
@@ -65,7 +65,7 @@ export async function POST(req: Request) {
     // console.log({ subscription });
     console.log("invoice.payment_succeeded");
     await connectToDB();
-    await User.findByIdAndUpdate(session.metadata.useId, {
+    await User.findByIdAndUpdate(session.metadata.userId, {
       stripePriceId: subscription.items.data[0].price.id,
       stripeCurrentPeriodEnd: new Date(subscription.current_period_end * 1000),
     });
