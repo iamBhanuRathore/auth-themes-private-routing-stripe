@@ -4,6 +4,8 @@ import * as z from "zod";
 import { authOption } from "@/lib/auth";
 import { connectToDB } from "@/lib/db";
 import Post from "@/models/post";
+import { getCurrentUser } from "@/lib/sesssion";
+import { getUserSubscriptionPlan } from "@/lib/validations/subscription";
 // import { getUserSubscriptionPlan } from "@/lib/subscription";
 const postCreateSchema = z.object({
   title: z.string(),
@@ -13,13 +15,29 @@ const postCreateSchema = z.object({
 export async function POST(req: Request) {
   try {
     await connectToDB();
-    const session = await getServerSession(authOption);
+    const user = await getCurrentUser();
+    // const session = await getServerSession(authOption);
 
-    if (!session) {
+    if (!user) {
       return new Response("Unauthorized", { status: 403 });
     }
 
-    const { user } = session;
+    // const { user } = session;
+    const count = await Post.count({ authorId: user.id });
+    const { plan } = await getUserSubscriptionPlan(user.id);
+
+    console.log({ count });
+    if (count >= plan.numberOfPosts) {
+      return new Response(
+        JSON.stringify({
+          message: `Maximum Posts (${plan.numberOfPosts}) reached , Upgrade Plan`,
+          success: false,
+        }),
+        {
+          status: 403,
+        }
+      );
+    }
     const json = await req.json();
     const { title, content } = postCreateSchema.parse(json);
     const posts = await Post.create({

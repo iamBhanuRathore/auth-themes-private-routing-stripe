@@ -31,13 +31,11 @@ export async function getUserSubscriptionPlan(userId: string): Promise<any> {
     : freePlan;
   let isCanceled = false;
   // console.log({ user });
-
   if (isSubscribed && user.stripeSubscriptionId) {
     const stripePlan = await stripe.subscriptions.retrieve(
       user.stripeSubscriptionId
     );
     // console.log({ stripePlan });
-
     isCanceled = stripePlan.cancel_at_period_end;
   }
   return {

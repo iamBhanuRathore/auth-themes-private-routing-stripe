@@ -30,10 +30,18 @@ export function PostCreateButton({
           title: "New One",
         }),
       });
-
+      const data = await response.json();
       setIsLoading(false);
+      console.log({ data });
 
       if (!response?.ok) {
+        if (response.status === 403) {
+          return toast({
+            title: data.message,
+            description: "Please upgrade to the Premium plan.",
+            variant: "destructive",
+          });
+        }
         if (response.status === 402) {
           return toast({
             title: "Limit of 3 posts reached.",
@@ -55,7 +63,9 @@ export function PostCreateButton({
 
       router.push(`/editor/${post._id}`);
     } catch (error) {
-      console.log(error.message);
+      console.log(
+        error instanceof Error ? error.message : "Internal Server Error"
+      );
     }
   }
   return (

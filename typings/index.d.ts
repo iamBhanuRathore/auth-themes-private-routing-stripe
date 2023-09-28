@@ -59,6 +59,7 @@ export type SubscriptionPlan = {
   name: string;
   description: string;
   stripePriceId: string;
+  numberOfPosts: number;
   price: number;
 };
 type SubscriptionPlans = SubscriptionPlan[];
