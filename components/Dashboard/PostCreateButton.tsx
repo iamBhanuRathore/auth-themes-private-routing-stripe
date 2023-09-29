@@ -31,8 +31,7 @@ export function PostCreateButton({
         }),
       });
       const data = await response.json();
-      setIsLoading(false);
-      console.log({ data });
+      // console.log({ data });
 
       if (!response?.ok) {
         if (response.status === 403) {
@@ -58,6 +57,7 @@ export function PostCreateButton({
 
       const post = await response.json();
 
+      setIsLoading(false);
       // Todo - This forces a cache invalidation.
       router.refresh();
 
@@ -66,6 +66,9 @@ export function PostCreateButton({
       console.log(
         error instanceof Error ? error.message : "Internal Server Error"
       );
+      console.log("In Catch Block Error");
+
+      setIsLoading(false);
     }
   }
   return (
@@ -79,8 +82,7 @@ export function PostCreateButton({
         className
       )}
       disabled={isLoading}
-      {...props}
-    >
+      {...props}>
       {isLoading ? (
         <Icons.Loader2 className="mr-2 h-4 w-4 animate-spin" />
       ) : (

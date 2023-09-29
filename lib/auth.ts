@@ -49,7 +49,7 @@ export const authOption: NextAuthOptions = {
             console.log("Authentication Failed");
             throw new Error("Login Via Social Accounts");
           }
-          const isMatch = await bcrypt.compare(
+          const isMatch = await bcrypt.compareSync(
             credentials.password,
             user.hashedPassword
           );
@@ -93,8 +93,8 @@ export const authOption: NextAuthOptions = {
     },
     async signIn({ user, account, profile, credentials }: any) {
       // console.log({ user, account, profile, credentials });
+      console.log("Sign In  Called");
       if (account.provider !== "credentials") {
-        // console.log("Sign In  Called");
         try {
           await connectToDB();
           const existUser = await User.findOne({
@@ -159,7 +159,7 @@ export const authOption: NextAuthOptions = {
       const dbUser = await User.findOne({
         email: token.email,
       });
-      // console.log({ dbUser });
+      console.log("JWT is Called");
       return {
         ...token,
         id: dbUser._id.toString(),

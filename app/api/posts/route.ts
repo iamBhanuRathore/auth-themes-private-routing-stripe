@@ -6,6 +6,7 @@ import { connectToDB } from "@/lib/db";
 import Post from "@/models/post";
 import { getCurrentUser } from "@/lib/sesssion";
 import { getUserSubscriptionPlan } from "@/lib/validations/subscription";
+import { log } from "console";
 // import { getUserSubscriptionPlan } from "@/lib/subscription";
 const postCreateSchema = z.object({
   title: z.string(),
@@ -45,8 +46,11 @@ export async function POST(req: Request) {
       title,
       content,
     });
-
-    return new Response(JSON.stringify(posts));
+    return new Response(JSON.stringify(posts), {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
   } catch (error) {
     if (error instanceof z.ZodError) {
       return new Response(JSON.stringify(error.issues), { status: 422 });
