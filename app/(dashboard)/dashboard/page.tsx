@@ -6,8 +6,6 @@ import { DashboardHeader } from "@/components/Dashboard/DashboardHeader";
 import { PostCreateButton } from "@/components/Dashboard/PostCreateButton";
 import { PostItem } from "@/components/Dashboard/PostItem";
 import { EmptyPlaceholder } from "@/components/Dashboard/EmptyPlaceholder";
-import axios from "axios";
-import { getServerSession } from "next-auth";
 import Post from "@/models/post";
 const Dashboard = async () => {
   const user = await getCurrentUser();

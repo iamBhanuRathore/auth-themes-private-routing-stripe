@@ -70,6 +70,7 @@ export type UserSubscriptionPlan = SubscriptionPlan &
     isPro: boolean;
     plan: SubscriptionPlan;
     isSubscribed: boolean;
+    isCanceled: boolean;
   };
 export type Post = {
   id: string;

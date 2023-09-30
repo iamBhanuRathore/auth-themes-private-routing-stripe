@@ -102,7 +102,7 @@ const Navbar = () => {
             </svg>
           </li>
           <li>
-            <Link className="text-sm hover:text-gray-500" href="/Billing">
+            <Link className="text-sm hover:text-gray-500" href="/billing">
               Billing
             </Link>
           </li>
@@ -123,7 +123,7 @@ const Navbar = () => {
             </svg>
           </li>
           <li>
-            <Link className="text-sm hover:text-gray-500" href="#">
+            <Link className="text-sm hover:text-gray-500" href="/contact">
               Contact
             </Link>
           </li>

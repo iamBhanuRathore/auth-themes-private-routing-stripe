@@ -46,11 +46,7 @@ export async function POST(req: Request) {
       title,
       content,
     });
-    return new Response(JSON.stringify(posts), {
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
+    return new Response(JSON.stringify(posts));
   } catch (error) {
     if (error instanceof z.ZodError) {
       return new Response(JSON.stringify(error.issues), { status: 422 });

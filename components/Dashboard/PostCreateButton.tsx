@@ -7,6 +7,8 @@ import { cn } from "@/lib/utils";
 import { ButtonProps, buttonVariants } from "@/components/ui/button";
 import { toast } from "@/components/ui/use-toast";
 import * as Icons from "lucide-react";
+import axios, { AxiosError } from "axios";
+import { signOut } from "next-auth/react";
 
 interface PostCreateButtonProps extends ButtonProps {}
 
@@ -21,53 +23,36 @@ export function PostCreateButton({
   async function onClick() {
     setIsLoading(true);
     try {
-      const response = await fetch("/api/posts", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          title: "New One",
-        }),
+      const { data, status } = await axios.post("/api/posts", {
+        title: "New One",
       });
-      const data = await response.json();
-      // console.log({ data });
+      console.log({ data, status });
 
-      if (!response?.ok) {
-        if (response.status === 403) {
-          return toast({
-            title: data.message,
-            description: "Please upgrade to the Premium plan.",
-            variant: "destructive",
-          });
-        }
-        if (response.status === 402) {
-          return toast({
-            title: "Limit of 3 posts reached.",
-            description: "Please upgrade to the PRO plan.",
-            variant: "destructive",
-          });
-        }
-        toast({
-          title: "Something went wrong.",
-          description: "Your post was not created. Please try again.",
+      // Todo - This forces a cache invalidation.
+      router.refresh();
+      router.push(`/editor/${data._id}`);
+    } catch (error: any) {
+      console.log(error.response);
+      if (error.response.status === 403) {
+        return toast({
+          title: "Alert",
+          description: error.response.data.message,
           variant: "destructive",
         });
       }
-
-      const post = await response.json();
-
-      setIsLoading(false);
-      // Todo - This forces a cache invalidation.
-      router.refresh();
-
-      router.push(`/editor/${post._id}`);
-    } catch (error) {
+      if (error.response.status === 422) {
+        await signOut();
+        return toast({
+          title: "Alert",
+          description: error.response.data.message,
+          variant: "destructive",
+        });
+      }
       console.log(
         error instanceof Error ? error.message : "Internal Server Error"
       );
       console.log("In Catch Block Error");
-
+    } finally {
       setIsLoading(false);
     }
   }
@@ -82,7 +67,8 @@ export function PostCreateButton({
         className
       )}
       disabled={isLoading}
-      {...props}>
+      {...props}
+    >
       {isLoading ? (
         <Icons.Loader2 className="mr-2 h-4 w-4 animate-spin" />
       ) : (
