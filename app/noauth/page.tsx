@@ -10,16 +10,16 @@ import {
 } from "@/components/ui/card";
 import { useSession } from "next-auth/react";
 
-export default function Home() {
+export default function Billing() {
   const { data: session } = useSession();
   return (
     <div className="flex w-full flex-1 flex-col min-h-[500px]">
-      <Card className="w-1/2 m-auto">
+      <Card className="w-1/2 m-auto bg-primary-2">
         <CardHeader>
           <CardTitle>This is a Client Side Page </CardTitle>
           <CardDescription>
-            This page is Protected By the Client Side. Only user who are logged
-            in can access this Page
+            This page is not Protected by Anybody can access this page
+            regardless they are log in or log out
           </CardDescription>
           <CardDescription className="">
             <Codefile user={session} />

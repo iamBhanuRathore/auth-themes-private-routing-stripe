@@ -1,5 +1,4 @@
 "use client";
-
 import * as React from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -8,7 +7,6 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import TextareaAutosize from "react-textarea-autosize";
 import * as z from "zod";
-
 import "@/styles/editor.css";
 import { cn } from "@/lib/utils";
 import { postPatchSchema } from "@/lib/validations/post";
@@ -62,6 +60,8 @@ export function Editor({ post }: EditorProps) {
           table: Table,
           embed: Embed,
         },
+        // tunes: ["light"],
+        autofocus: true,
       });
     }
   }, [post]);
@@ -127,8 +127,7 @@ export function Editor({ post }: EditorProps) {
           <div className="flex items-center space-x-10">
             <Link
               href="/dashboard"
-              className={cn(buttonVariants({ variant: "ghost" }))}
-            >
+              className={cn(buttonVariants({ variant: "ghost" }))}>
               <>
                 <Icons.ChevronLeft className="mr-2 h-4 w-4" />
                 Back
