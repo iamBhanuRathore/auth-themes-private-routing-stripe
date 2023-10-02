@@ -38,6 +38,7 @@ export function Editor({ post }: EditorProps) {
     const InlineCode = (await import("@editorjs/inline-code")).default;
 
     const body = postPatchSchema.parse(post);
+
     console.log(post);
 
     if (!ref.current) {
