@@ -82,26 +82,6 @@ export type Post = {
   authorId: String;
 };
 
-// editorjs-header.d.ts
-
-// declare module "@editorjs/header" {
-//   import {
-//     ToolConstructable,
-//     BaseTool,
-//     BlockTune,
-//     SanitizerConfig,
-//   } from "@editorjs/editorjs";
-
-//   export interface HeaderData {
-//     text: string;
-//     level: number;
-//   }
-
-//   export class Header extends BaseTool {
-//     constructor(data: HeaderData, config?: { [key: string]: any });
-//   }
-// }
-
 // // editorjs-embed.d.ts
 
 // declare module "@editorjs/embed" {
