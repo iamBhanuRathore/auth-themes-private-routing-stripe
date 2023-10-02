@@ -30,7 +30,7 @@
 //   const [isMounted, setIsMounted] = React.useState<boolean>(false);
 
 //   const initializeEditor = React.useCallback(async () => {
-//     const EditorJS = (await import("@editorjs/editorjs")).default;
+//     // const EditorJS = (await import("@editorjs/editorjs")).default;
 //     const Header = (await import("@editorjs/header")).default;
 //     const Embed = (await import("@editorjs/embed")).default;
 //     const Table = (await import("@editorjs/table")).default;
@@ -171,6 +171,7 @@
 import * as React from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import EditorJS from "@editorjs/editorjs";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import TextareaAutosize from "react-textarea-autosize";
@@ -194,7 +195,7 @@ export function Editor({ post }) {
   const [isMounted, setIsMounted] = React.useState < boolean > false;
 
   const initializeEditor = React.useCallback(async () => {
-    const EditorJS = (await import("@editorjs/editorjs")).default;
+    // const EditorJS = (await import("@editorjs/editorjs")).default;
     const Header = (await import("@editorjs/header")).default;
     const Embed = (await import("@editorjs/embed")).default;
     const Table = (await import("@editorjs/table")).default;
@@ -203,7 +204,7 @@ export function Editor({ post }) {
     const LinkTool = (await import("@editorjs/link")).default;
     const InlineCode = (await import("@editorjs/inline-code")).default;
 
-    const body = post;
+    const body = postPatchSchema.parse(post);
     console.log(post);
 
     if (!ref.current) {
@@ -234,7 +235,7 @@ export function Editor({ post }) {
     if (typeof window !== "undefined") {
       setIsMounted(true);
     }
-  }, [setIsMounted]);
+  }, []);
 
   React.useEffect(() => {
     if (isMounted) {
