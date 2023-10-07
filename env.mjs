@@ -7,8 +7,6 @@ export const env = createEnv({
     GOOGLE_CLIENT_SECRET: z.string().min(5),
     GITHUB_CLIENT_ID: z.string().min(5),
     GITHUB_CLIENT_SECRET: z.string().min(5),
-    GITHUB_CLIENT_ID: z.string().min(5),
-    GITHUB_CLIENT_SECRET: z.string().min(5),
     NETLIFY_CLIENT_ID: z.string().min(5),
     NETLIFY_CLIENT_SECRET: z.string().min(5),
     MONGODB_URI: z.string().min(5),
