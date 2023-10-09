@@ -13,7 +13,7 @@ const ServerPage = async () => {
   const user = await getCurrentUser();
   return (
     <div className="flex w-full flex-1 flex-col min-h-[500px]">
-      <Card className="w-1/2 m-auto">
+      <Card className="w-3/4 lg:w-1/2 m-auto">
         <CardHeader>
           <CardTitle>This is a Server Page </CardTitle>
           <CardDescription>
