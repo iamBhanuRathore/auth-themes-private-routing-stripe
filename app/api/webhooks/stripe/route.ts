@@ -29,9 +29,10 @@ export async function POST(req: Request) {
   } catch (error) {
     console.log("stripe.webhooks.constructEvent Error", JSON.stringify(error));
     return new Response(
-      `Webhook Error: ${
-        error instanceof Error ? error.message : "Unknown Error"
-      }`,
+      `Webhook Error`,
+      // `Webhook Error: ${
+      //   error instanceof Error ? error.message : "Unknown Error"
+      // }`,
       {
         status: 400,
       }
