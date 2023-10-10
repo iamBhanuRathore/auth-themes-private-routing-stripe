@@ -9,8 +9,8 @@ const UserSchema = new Schema({
   createdAt: { type: Date, default: Date.now },
   updatedAt: Date, // Reference to Account model
   sessions: [{ type: Schema.Types.ObjectId, ref: "Session" }], // Reference to Session model
-  stripeCustomerId: { type: String, unique: true },
-  stripeSubscriptionId: { type: String, unique: true },
+  stripeCustomerId: { type: String },
+  stripeSubscriptionId: { type: String },
   stripePriceId: String,
   stripeCurrentPeriodEnd: Date,
 });
