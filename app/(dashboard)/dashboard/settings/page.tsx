@@ -1,6 +1,7 @@
 import { DashboardHeader } from "@/components/Dashboard/DashboardHeader";
 import { DashboardShell } from "@/components/Dashboard/DashboardShell";
 import { UserNameForm } from "@/components/Dashboard/UserNameForm";
+import { UserUpdatePassword } from "@/components/Dashboard/UserUpdatePassword";
 import { authOption } from "@/lib/auth";
 import { getCurrentUser } from "@/lib/sesssion";
 import { redirect } from "next/navigation";
@@ -25,6 +26,7 @@ export default async function SettingsPage() {
       />
       <div className="grid gap-10">
         <UserNameForm user={{ id: user.id, name: user.name || "" }} />
+        <UserUpdatePassword user={{ id: user.id, name: user.name || "" }} />
       </div>
     </DashboardShell>
   );

@@ -39,7 +39,7 @@ export default function LoginForm() {
           </h2>
         </div>
 
-        <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
+        <div className="mt-10 sm:mx-auto sm:w-full px-10 py-5 rounded-lg bg-primary-2 sm:max-w-sm">
           <form className="space-y-6" onSubmit={loginUser}>
             <div>
               <label
