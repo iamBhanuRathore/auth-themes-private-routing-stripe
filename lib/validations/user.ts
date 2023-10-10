@@ -22,6 +22,7 @@ export const userPasswordSchema = z
       ctx.addIssue({
         code: "custom",
         message: "Password does Not Match",
+        path: ["matchPassword"],
       });
     }
   });

@@ -21,6 +21,7 @@ import { toast } from "@/components/ui/use-toast";
 import * as Icons from "lucide-react";
 import { User } from "@/typings";
 import { userPasswordSchema } from "@/lib/validations/user";
+import { ToastAction } from "@radix-ui/react-toast";
 
 interface UserNameFormProps extends React.HTMLAttributes<HTMLFormElement> {
   user: Pick<User, "id" | "name">;
@@ -45,7 +46,16 @@ export function UserUpdatePassword({
     },
   });
   const [isSaving, setIsSaving] = React.useState<boolean>(false);
+  const [isShown, setIsShown] = React.useState<boolean>(false);
   console.log(errors);
+  if (errors?.matchPassword?.message) {
+    toast({
+      description: errors?.matchPassword?.message,
+      type: "foreground",
+      color: "error",
+      variant: "destructive",
+    });
+  }
   async function onSubmit(data: FormData) {
     setIsSaving(true);
     for (let i = 0; i <= 1000000000; i++) {}
@@ -81,8 +91,7 @@ export function UserUpdatePassword({
     <form
       className={cn(className)}
       onSubmit={handleSubmit(onSubmit)}
-      {...props}
-    >
+      {...props}>
       <Card>
         <CardHeader>
           <CardTitle>Update Password</CardTitle>
@@ -91,51 +100,68 @@ export function UserUpdatePassword({
           </CardDescription>
         </CardHeader>
         <CardContent className="flex space-x-5">
-          <div className="grid gap-1">
-            <Label className="sr-only" htmlFor="name">
-              Password
-            </Label>
-            <Input
-              id="name"
-              className="w-[400px]"
-              size={32}
-              {...register("password")}
-            />
-            {errors?.password && (
-              <p className="px-1 text-xs text-red-600">
-                {errors.password.message}
-              </p>
-            )}
-          </div>
-          <div className="grid gap-1">
-            <Label className="sr-only" htmlFor="name">
-              Confirm Password
-            </Label>
-            <Input
-              id="name"
-              className="w-[400px]"
-              size={32}
-              {...register("confirmPassword")}
-            />
-            {errors?.confirmPassword && (
-              <p className="px-1 text-xs text-red-600">
-                {errors.confirmPassword.message}
-              </p>
-            )}
-          </div>
+          {isShown && (
+            <>
+              <div className="grid gap-1">
+                <Label className="sr-only" htmlFor="name">
+                  Password
+                </Label>
+                <Input
+                  id="name"
+                  className="w-[400px]"
+                  size={32}
+                  {...register("password")}
+                />
+                {errors?.password && (
+                  <p className="px-1 text-xs text-red-600">
+                    {errors.password.message}
+                  </p>
+                )}
+              </div>
+              <div className="grid gap-1">
+                <Label className="sr-only" htmlFor="name">
+                  Confirm Password
+                </Label>
+                <Input
+                  id="name"
+                  className="w-[400px]"
+                  size={32}
+                  {...register("confirmPassword")}
+                />
+                {errors?.confirmPassword && (
+                  <p className="px-1 text-xs text-red-600">
+                    {errors.confirmPassword.message}
+                  </p>
+                )}
+              </div>
+            </>
+          )}
         </CardContent>
-        <p>{errors.root?.message}</p>
         <CardFooter>
-          <button
-            type="submit"
-            className={cn(buttonVariants(), className)}
-            disabled={isSaving}
-          >
-            {isSaving && (
-              <Icons.Loader2 className="mr-2 h-4 w-4 animate-spin" />
-            )}
-            <span>Update Password</span>
-          </button>
+          {!isShown && (
+            <button
+              type="button"
+              onClick={() => setIsShown(true)}
+              className={cn(buttonVariants(), className)}
+              disabled={isSaving}>
+              {isSaving && (
+                <Icons.Loader2 className="mr-2 h-4 w-4 animate-spin" />
+              )}
+              <span>Update Old Password</span>
+            </button>
+          )}
+
+          {isShown && (
+            <button
+              type="submit"
+              className={cn(buttonVariants(), className)}
+              disabled={isSaving}>
+              {isSaving && (
+                <Icons.Loader2 className="mr-2 h-4 w-4 animate-spin" />
+              )}
+              <span>Reset Password</span>
+            </button>
+          )}
         </CardFooter>
       </Card>
     </form>
