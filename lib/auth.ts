@@ -130,7 +130,9 @@ export const authOption: NextAuthOptions = {
               email: user.email,
               emailVerified: true,
               image: user.image,
-              hashedPassword: "Logged In Throught Providers",
+              hashedPassword: "Logged In Through Providers",
+              stripeCustomerId: "",
+              stripeSubscriptionId: "",
             });
             await Account.create({
               userId: newUser._id, // Link the account to the user
