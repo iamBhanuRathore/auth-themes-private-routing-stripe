@@ -58,6 +58,7 @@ export function UserUpdatePassword({
     });
     reset();
   }
+
   async function onSubmit(data: FormData) {
     const result = userPasswordSchema.safeParse(data);
     console.log({ data, result });
