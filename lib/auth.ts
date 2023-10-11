@@ -171,7 +171,6 @@ export const authOption: NextAuthOptions = {
       const dbUser = await User.findOne({
         email: token.email,
       });
-      console.log({ dbUser, user: JSON.stringify(user), token });
       console.log("JWT is Called");
       return {
         ...token,

@@ -47,10 +47,10 @@ export function UserUpdatePassword({
   });
   const [isSaving, setIsSaving] = React.useState<boolean>(false);
   const [isShown, setIsShown] = React.useState<boolean>(false);
-  console.log(errors);
+  // @ts-ignore
   if (errors?.matchPassword?.message) {
     toast({
-      title: "Wrong Password",
+      title: "Wrong Password", // @ts-ignore
       description: errors?.matchPassword?.message,
       type: "foreground",
       color: "error",
@@ -59,6 +59,8 @@ export function UserUpdatePassword({
     reset();
   }
   async function onSubmit(data: FormData) {
+    const result = userPasswordSchema.safeParse(data);
+    console.log({ data, result });
     setIsSaving(true);
     const response = await fetch(`/api/users/${user.id}/updatepassword`, {
       method: "PATCH",
@@ -92,8 +94,7 @@ export function UserUpdatePassword({
     <form
       className={cn(className)}
       onSubmit={handleSubmit(onSubmit)}
-      {...props}
-    >
+      {...props}>
       <Card>
         <CardHeader>
           <CardTitle>Update Password</CardTitle>
@@ -146,8 +147,7 @@ export function UserUpdatePassword({
             <button
               type="button"
               onClick={() => setIsShown(true)}
-              className={cn(buttonVariants(), className)}
-            >
+              className={cn(buttonVariants(), className)}>
               <span>Update Old Password</span>
             </button>
           )}
@@ -156,8 +156,7 @@ export function UserUpdatePassword({
             <button
               type="submit"
               className={cn(buttonVariants(), className)}
-              disabled={isSaving}
-            >
+              disabled={isSaving}>
               {isSaving && (
                 <Icons.Loader2 className="mr-2 h-4 w-4 animate-spin" />
               )}
