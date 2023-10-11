@@ -19,15 +19,20 @@ export default function LoginForm() {
     e.preventDefault();
     signIn("credentials", {
       ...data,
-      redirect: false,
+      redirect: true,
       callbackUrl: searchParams?.get("from") || "/serverpage",
-    }).then((res) => {
-      if (res?.error) {
-        alert("Login failed : " + res.error);
-      }
-      // alert("Logged In SuccessFully!!");
-      // console.log({ res });
-    });
+    })
+      .then((res) => {
+        if (res?.error) {
+          console.log(res);
+          alert("Login failed : " + res.error);
+        }
+        // alert("Logged In SuccessFully!!");
+        // console.log({ res });
+      })
+      .catch((err) => {
+        console.log("Error", err.message);
+      });
   };
 
   return (

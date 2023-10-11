@@ -21,7 +21,7 @@ export const userPasswordSchema = z
     if (confirmPassword !== password) {
       ctx.addIssue({
         code: "custom",
-        message: "Password does Not Match",
+        message: "Password you entered is not Matched",
         path: ["matchPassword"],
       });
     }

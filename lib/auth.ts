@@ -43,18 +43,29 @@ export const authOption: NextAuthOptions = {
           }
           const user = await User.findOne({ email: credentials.email });
           if (!user) {
-            throw new Error("No User Found for credentials");
+            return new Response(
+              JSON.stringify({ message: "No User Found for credentials" }),
+              { status: 404 }
+            );
+            // throw new Error("No User Found for credentials");
           }
           if (user.hashedPassword === "Logged In Throught Providers") {
             console.log("Authentication Failed");
-            throw new Error("Login Via Social Accounts");
+            // throw new Error("Login Via Social Accounts");
+            return new Response(
+              JSON.stringify({ message: "Login Via Social Accounts" }),
+              { status: 402 }
+            );
           }
-          const isMatch = await bcrypt.compareSync(
+          const isMatch = bcrypt.compareSync(
             credentials.password,
             user.hashedPassword
           );
           if (!isMatch) {
-            throw new Error("No User Found for credentials");
+            // throw new Error("Wrong Password");
+            return new Response(JSON.stringify({ message: "Wrong Password" }), {
+              status: 402,
+            });
           }
           return user;
         } catch (error: any) {
@@ -108,7 +119,6 @@ export const authOption: NextAuthOptions = {
               providerAccountId: account.providerAccountId,
             });
             // console.log({ account: existAccount })
-
             if (existAccount) {
               return true;
             } else {
@@ -161,6 +171,7 @@ export const authOption: NextAuthOptions = {
       const dbUser = await User.findOne({
         email: token.email,
       });
+      console.log({ dbUser, user: JSON.stringify(user), token });
       console.log("JWT is Called");
       return {
         ...token,
@@ -170,10 +181,23 @@ export const authOption: NextAuthOptions = {
         picture: dbUser.image,
       };
     },
-    // async redirect({ baseUrl, url }) {
-    //     // console.log({ baseUrl, url });
-    //     return baseUrl
-    // }
+    // async jwt({ token, user }) {
+    //   console.log("User", token, JSON.stringify(user));
+    //   // const isSignIn = user ? true : false;
+    //   // if (isSignIn) {
+    //   //   token.username = user.username;
+    //   //   token.password = user.password;
+    //   // }
+    //   return token;
+    // },
+    // async redirect({ url, baseUrl }) {
+    //   console.log({ url, baseUrl });
+    //   // Allows relative callback URLs
+    //   if (url.startsWith("/")) return `${baseUrl}${url}`;
+    //   // Allows callback URLs on the same origin
+    //   else if (new URL(url).origin === baseUrl) return url;
+    //   return baseUrl;
+    // },
   },
   secret: env.NEXTAUTH_SECRET,
   session: {

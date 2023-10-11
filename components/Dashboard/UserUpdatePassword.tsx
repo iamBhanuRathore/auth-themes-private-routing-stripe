@@ -21,7 +21,6 @@ import { toast } from "@/components/ui/use-toast";
 import * as Icons from "lucide-react";
 import { User } from "@/typings";
 import { userPasswordSchema } from "@/lib/validations/user";
-import { ToastAction } from "@radix-ui/react-toast";
 
 interface UserNameFormProps extends React.HTMLAttributes<HTMLFormElement> {
   user: Pick<User, "id" | "name">;
@@ -38,6 +37,7 @@ export function UserUpdatePassword({
   const {
     handleSubmit,
     register,
+    reset,
     formState: { errors },
   } = useForm<FormData>({
     resolver: zodResolver(userPasswordSchema),
@@ -50,40 +50,41 @@ export function UserUpdatePassword({
   console.log(errors);
   if (errors?.matchPassword?.message) {
     toast({
+      title: "Wrong Password",
       description: errors?.matchPassword?.message,
       type: "foreground",
       color: "error",
       variant: "destructive",
     });
+    reset();
   }
   async function onSubmit(data: FormData) {
     setIsSaving(true);
-    for (let i = 0; i <= 1000000000; i++) {}
+    const response = await fetch(`/api/users/${user.id}/updatepassword`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        password: data.password,
+      }),
+    });
+
     setIsSaving(false);
-    // const response = await fetch(`/api/users/${user.id}`, {
-    //   method: "PATCH",
-    //   headers: {
-    //     "Content-Type": "application/json",
-    //   },
-    //   body: JSON.stringify({
-    //     name: data.password,
-    //   }),
-    // });
 
-    // setIsSaving(false);
+    if (!response?.ok) {
+      return toast({
+        title: "Something went wrong.",
+        description: "Your name was not updated. Please try again.",
+        variant: "destructive",
+      });
+    }
 
-    // if (!response?.ok) {
-    //   return toast({
-    //     title: "Something went wrong.",
-    //     description: "Your name was not updated. Please try again.",
-    //     variant: "destructive",
-    //   });
-    // }
-
-    // toast({
-    //   description: "Your name has been updated.",
-    // });
-
+    toast({
+      description: "Your Password has been updated.",
+    });
+    reset();
+    setIsShown(false);
     router.refresh();
   }
 
@@ -91,7 +92,8 @@ export function UserUpdatePassword({
     <form
       className={cn(className)}
       onSubmit={handleSubmit(onSubmit)}
-      {...props}>
+      {...props}
+    >
       <Card>
         <CardHeader>
           <CardTitle>Update Password</CardTitle>
@@ -110,6 +112,7 @@ export function UserUpdatePassword({
                   id="name"
                   className="w-[400px]"
                   size={32}
+                  placeholder="New Password"
                   {...register("password")}
                 />
                 {errors?.password && (
@@ -125,13 +128,14 @@ export function UserUpdatePassword({
                 <Input
                   id="name"
                   className="w-[400px]"
+                  placeholder="Confirm New Password"
                   size={32}
                   {...register("confirmPassword")}
                 />
                 {errors?.confirmPassword && (
-                  <p className="px-1 text-xs text-red-600">
+                  <span className="px-1 text-xs text-red-600">
                     {errors.confirmPassword.message}
-                  </p>
+                  </span>
                 )}
               </div>
             </>
@@ -143,10 +147,7 @@ export function UserUpdatePassword({
               type="button"
               onClick={() => setIsShown(true)}
               className={cn(buttonVariants(), className)}
-              disabled={isSaving}>
-              {isSaving && (
-                <Icons.Loader2 className="mr-2 h-4 w-4 animate-spin" />
-              )}
+            >
               <span>Update Old Password</span>
             </button>
           )}
@@ -155,7 +156,8 @@ export function UserUpdatePassword({
             <button
               type="submit"
               className={cn(buttonVariants(), className)}
-              disabled={isSaving}>
+              disabled={isSaving}
+            >
               {isSaving && (
                 <Icons.Loader2 className="mr-2 h-4 w-4 animate-spin" />
               )}
